@@ -11,7 +11,7 @@
 - [x] 2.1 Set version `0.1.0-beta.1` in `plugin.json` and the marketplace entry; verify `claude plugin validate . --strict`
 - [x] 2.2 Write `docs/releases/v0.1.0-beta.1.md` and the CHANGELOG section, and link them from the README; verify the validator's link and release-notes checks
 - [x] 2.3 Verify `/forge:version` in a real headless session in an unrelated project: the output contains `0.1.0-beta.1`, the channel `beta`, and there are no permission denials
-- [ ] 2.4 Commit, then create the local tag with `claude plugin tag plugins/forge`; verify with `git tag -l "forge--v*"`
+- [x] 2.4 Commit, then create the local tag with `claude plugin tag plugins/forge`; verify with `git tag -l "forge--v*"`
 
 ## Workflow follow-up
 

@@ -14,7 +14,7 @@ import unittest
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 AGENTCFG = os.path.join(ROOT, "scripts", "agentcfg.py")
 FAKE_CLAUDE = os.path.join(ROOT, "tests", "fixtures", "fake_claude.py")
-RULES = os.path.join("rules", "facundo-agent-config")
+RULES = os.path.join("rules", "forge")
 FAKE_FILES = {"calls.log", "fake-claude-state.json"}
 
 
@@ -86,7 +86,7 @@ class InstallerTest(unittest.TestCase):
             return [json.loads(line) for line in handle]
 
     def backups(self):
-        folder = os.path.join(self.config, "backups", "facundo-agent-config")
+        folder = os.path.join(self.config, "backups", "forge")
         return sorted(os.listdir(folder)) if os.path.isdir(folder) else []
 
     def seed_foreign(self):
@@ -102,7 +102,7 @@ class DryRun(InstallerTest):
         before = tree(self.config, skip_backups=False)
         result = self.run_cfg("install", "--dry-run", "--with-permissions", "--with-plugin", "--with-engram")
         self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertIn("create   rules/facundo-agent-config/core.md", result.stdout)
+        self.assertIn("create   rules/forge/core.md", result.stdout)
         self.assertEqual(tree(self.config, skip_backups=False), before)
         self.assertEqual(self.calls(), [])
 
@@ -160,8 +160,8 @@ class InstallBehavior(InstallerTest):
         claude_json = json.loads(self.read(".claude.json"))
         self.assertEqual(set(claude_json["mcpServers"]), {"github"})
         self.assertEqual(claude_json["numStartups"], 3)
-        self.assertFalse(any(k.startswith("rules/facundo-agent-config/") and not k.endswith("profile.md") for k in after))
-        self.assertIn(["plugin", "uninstall", "forge@facundo-agent-config", "--scope", "user"], self.calls())
+        self.assertFalse(any(k.startswith("rules/forge/") and not k.endswith("profile.md") for k in after))
+        self.assertIn(["plugin", "uninstall", "forge@forge", "--scope", "user"], self.calls())
 
     def test_restore_is_byte_identical(self):
         self.seed_foreign()
@@ -182,7 +182,7 @@ class InstallBehavior(InstallerTest):
         self.write(os.path.join(RULES, "core.md"), "# customized\n")
         self.run_cfg("uninstall")
         latest = self.backups()[-1]
-        saved = os.path.join(self.config, "backups", "facundo-agent-config", latest, "files", RULES, "core.md")
+        saved = os.path.join(self.config, "backups", "forge", latest, "files", RULES, "core.md")
         with open(saved, encoding="utf-8") as handle:
             self.assertEqual(handle.read(), "# customized\n")
 
@@ -244,10 +244,10 @@ class ExternalTools(InstallerTest):
     def test_missing_claude_prints_manual_commands(self):
         result = self.run_cfg("install", "--with-plugin", "--with-engram", claude="none")
         self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertIn("claude plugin install forge@facundo-agent-config --scope user", result.stdout)
+        self.assertIn("claude plugin install forge@forge --scope user", result.stdout)
         self.assertIn("claude mcp add --scope user engram", result.stdout)
         self.assertTrue(os.path.exists(os.path.join(self.config, RULES, "core.md")))
-        manifest = json.loads(self.read("facundo-agent-config/manifest.json"))
+        manifest = json.loads(self.read("forge/manifest.json"))
         self.assertFalse(manifest["plugin"])
         self.assertFalse(manifest["engram_mcp"])
 
@@ -260,7 +260,7 @@ class ExternalTools(InstallerTest):
     def test_engram_fresh_wiring_exact_command(self):
         self.run_cfg("install", "--with-engram")
         self.assertIn(["mcp", "add", "--scope", "user", "engram", "--", self.engram, "mcp", "--tools=agent"], self.calls())
-        self.assertTrue(json.loads(self.read("facundo-agent-config/manifest.json"))["engram_mcp"])
+        self.assertTrue(json.loads(self.read("forge/manifest.json"))["engram_mcp"])
         self.run_cfg("uninstall")
         self.assertIn(["mcp", "remove", "engram", "--scope", "user"], self.calls())
 
@@ -270,7 +270,7 @@ class ExternalTools(InstallerTest):
         result = self.run_cfg("install", "--with-engram")
         self.assertIn("CONFLICT", result.stdout)
         self.assertEqual([c for c in self.calls() if c[:1] == ["mcp"]], [])
-        self.assertFalse(json.loads(self.read("facundo-agent-config/manifest.json"))["engram_mcp"])
+        self.assertFalse(json.loads(self.read("forge/manifest.json"))["engram_mcp"])
         self.run_cfg("uninstall")
         self.assertEqual(self.read(".claude.json"), before)
 

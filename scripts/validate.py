@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Structural, content and secret validation for facundo-agent-config.
+"""Structural, content and secret validation for forge.
 
 Stdlib only. Usage: python scripts/validate.py [--root PATH]
 Exits 1 on any error. `claude plugin validate` remains the authoritative manifest check;

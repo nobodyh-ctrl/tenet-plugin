@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-  Removes only the components that facundo-agent-config installed (per its manifest).
+  Removes only the components that forge installed (per its manifest).
 .DESCRIPTION
   Foreign rules, settings, MCP servers and Engram data are preserved. The private profile is kept
   unless -Purge is given. Every removal is backed up and can be undone with install.ps1 -Restore <id>.

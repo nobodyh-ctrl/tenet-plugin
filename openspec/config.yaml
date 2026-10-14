@@ -1,7 +1,7 @@
 schema: spec-driven
 
 context: |
-  Project: facundo-agent-config. Reusable engineering system for Claude Code, distributed as the
+  Project: forge. Reusable engineering system for Claude Code, distributed as the
   `forge` plugin (own marketplace) plus a complementary installer for what plugins cannot ship
   (user-level rules, private profile, optional permissions).
   Ownership model: OpenSpec owns specs and change lifecycle; Engram owns persistent memory (its

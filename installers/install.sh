@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Installs the facundo-agent-config complementary configuration on Linux (and Git Bash).
+# Installs the forge complementary configuration on Linux (and Git Bash).
 # Detects the environment, locates Python 3.9+ and delegates to scripts/agentcfg.py.
 # Never installs third-party tools. Run with --dry-run first to preview every change.
 #
@@ -31,5 +31,5 @@ if [ -n "$restore" ]; then
   args=("${filtered[@]}")
 fi
 
-echo "facundo-agent-config installer - $(uname -s) $(uname -r) / bash ${BASH_VERSION}"
+echo "forge installer - $(uname -s) $(uname -r) / bash ${BASH_VERSION}"
 run_agentcfg "${args[@]}"

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Read-only environment diagnostics for facundo-agent-config.
+"""Read-only environment diagnostics for forge.
 
 Reports tool versions, whether the guard hook can run, and the install state of rules, plugin,
 permissions and the Engram MCP entry. Never writes, and never runs commands that change state.

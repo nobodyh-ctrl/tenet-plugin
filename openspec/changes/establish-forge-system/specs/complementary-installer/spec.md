@@ -32,7 +32,7 @@ The installer SHALL target `--config-dir`, else `CLAUDE_CONFIG_DIR`, else `~/.cl
 - **THEN** the installer exits with an error and writes nothing
 
 ### Requirement: Idempotent install with ownership manifest
-The installer SHALL copy rules to `<config>/rules/facundo-agent-config/`, record owned files (with SHA-256) and permission rules in a manifest, and produce the same state on repeated runs.
+The installer SHALL copy rules to `<config>/rules/forge/`, record owned files (with SHA-256) and permission rules in a manifest, and produce the same state on repeated runs.
 
 #### Scenario: Reinstall
 - **WHEN** install runs twice
@@ -53,7 +53,7 @@ The installer SHALL create the private profile from the template only if absent,
 - **THEN** the profile is unchanged
 
 ### Requirement: Backup and restore
-Before modifying or deleting an existing file the installer SHALL back it up under `<config>/backups/facundo-agent-config/<timestamp>/` and SHALL support `--restore <timestamp>`.
+Before modifying or deleting an existing file the installer SHALL back it up under `<config>/backups/forge/<timestamp>/` and SHALL support `--restore <timestamp>`.
 
 #### Scenario: Byte-identical restore
 - **WHEN** install runs with `--with-permissions` and the created backup is restored

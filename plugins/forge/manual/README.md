@@ -42,6 +42,6 @@ Every standard under a `## Standards` heading carries exactly one marker:
 
 ## Evolution
 
-- Changes to a `MUST` or `SHOULD` standard go through an OpenSpec change in the facundo-agent-config repository. Editorial fixes do not.
+- Changes to a `MUST` or `SHOULD` standard go through an OpenSpec change in the forge repository. Editorial fixes do not.
 - When a project reveals a lesson, promote it here only if it is reusable across independent projects. Project-specific decisions stay in that project's ADRs.
 - Prefer adding decision criteria over adding mandatory rules. Depth grows from real project evidence, not up front.

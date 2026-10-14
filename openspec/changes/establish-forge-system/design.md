@@ -51,7 +51,7 @@ See proposal.md for motivation. Facts verified on 2026-10-14 (installed versions
 | Engram user-scope MCP entry (`~/.claude.json`) | Claude Code CLI, invoked by the forge installer `--with-engram`, recorded in the manifest |
 | Specs, changes and `/opsx:*` | OpenSpec (per project) |
 | Skills, agents and guard hook | `forge` plugin (Claude Code plugin cache) |
-| `~/.claude/rules/facundo-agent-config/` and optional permission rules | forge installer (manifest) |
+| `~/.claude/rules/forge/` and optional permission rules | forge installer (manifest) |
 | Persona and preferences | forge private `profile.md` rule |
 
 No two systems write the same file. Forge never edits `~/.claude.json` directly; only `claude mcp add` and `claude mcp remove` do.
@@ -160,6 +160,20 @@ These live in `skills/project-init/templates/`:
 The headless `project-init` run showed that reads of `${CLAUDE_PLUGIN_ROOT}/manual/...` are outside the project's working directory, so Claude Code denies them (or prompts in interactive sessions). Skills that read plugin files declare `allowed-tools: Read(${CLAUDE_PLUGIN_ROOT}/**)`. A probe confirmed the variable is substituted in frontmatter and the read succeeds. The grant is read-only, limited to the plugin, and lasts only for the invoking turn.
 *Rejected:* a user-level `Read` allow rule for the plugin path. It is broader in time, depends on the install location, and contradicts "no allow rules" in the installer.
 Subagents (`architect`, `security-reviewer`) cannot pre-approve. In interactive sessions their manual reads may prompt; the parent can pass the relevant excerpt instead.
+
+### D13. Product name `forge` everywhere (user decision, 2026-10-14)
+The repository, marketplace, installer state and user-rules folder are all named `forge`, because it is a tool for anyone, not a personal config. The install id is `forge@forge`. Paths:
+- rules in `~/.claude/rules/forge/`;
+- state in `~/.claude/forge/`;
+- backups in `~/.claude/backups/forge/`.
+
+Authorship stays only in `LICENSE` and the manifests' `author` and `owner`.
+Existing installs under the old name are migrated once, manually and with approval (tasks group 13):
+1. Uninstall using the previous release's installer (which knows the old paths), keeping the profile.
+2. Move the profile to the new folder.
+3. Install the new version.
+
+*Rejected:* permanent legacy-path migration code in the installer. Only one pre-release install exists, so it would be dead code for everyone else.
 
 ## Risks / Trade-offs
 

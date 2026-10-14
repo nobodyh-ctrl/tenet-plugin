@@ -1,8 +1,8 @@
-# facundo-agent-config
+# forge
 
-**An engineering system for Claude Code.** Reusable skills, least-privilege agents, a safety guard hook, persistent memory through Engram, and spec-driven development with OpenSpec, packaged as the `forge` plugin with cross-platform installers.
+**An engineering system for anyone who builds software with Claude Code.** It packages reusable skills, least-privilege agents, a safety guard hook, persistent memory through Engram, and spec-driven development with OpenSpec as the `forge` plugin, with installers for Windows and Linux.
 
-It shapes *how* Claude Code works in any repository. It does not decide *what* your product is. Each project keeps its own requirements, stack and decisions.
+forge shapes *how* Claude Code works in any repository. It does not decide *what* your product is. Each project keeps its own requirements, stack and decisions, and each person keeps a private profile (language, experience, learning goals) that never leaves their machine.
 
 ## What you get
 
@@ -20,15 +20,15 @@ It shapes *how* Claude Code works in any repository. It does not decide *what* y
 
 ```mermaid
 flowchart LR
-  subgraph repo[facundo-agent-config repo]
+  subgraph repo[forge repo]
     MP[.claude-plugin/marketplace.json]
     PL[plugins/forge<br/>skills · agents · hooks · manual]
     GC[global-config/rules<br/>+ profile template]
     IN[installers + scripts/agentcfg.py]
   end
   subgraph claude[Claude Code on your machine]
-    CACHE[plugin cache<br/>forge@facundo-agent-config]
-    RULES[~/.claude/rules/facundo-agent-config/]
+    CACHE[plugin cache<br/>forge@forge]
+    RULES[~/.claude/rules/forge/]
     SET[settings.json<br/>optional ask/deny]
     MCP[user MCP: engram]
   end
@@ -56,8 +56,8 @@ There is exactly one owner per surface, and no tool writes another tool's files.
 **Windows (PowerShell):**
 
 ```powershell
-git clone https://github.com/<owner>/facundo-agent-config
-cd facundo-agent-config
+git clone https://github.com/<owner>/forge
+cd forge
 .\installers\install.ps1 -DryRun -WithPlugin -WithEngram   # preview
 .\installers\install.ps1 -WithPlugin -WithEngram
 ```
@@ -65,8 +65,8 @@ cd facundo-agent-config
 **Linux:**
 
 ```bash
-git clone https://github.com/<owner>/facundo-agent-config
-cd facundo-agent-config
+git clone https://github.com/<owner>/forge
+cd forge
 installers/install.sh --dry-run --with-plugin --with-engram   # preview
 installers/install.sh --with-plugin --with-engram
 ```
@@ -74,11 +74,11 @@ installers/install.sh --with-plugin --with-engram
 **Plugin only, no clone:**
 
 ```bash
-claude plugin marketplace add <owner>/facundo-agent-config
-claude plugin install forge@facundo-agent-config
+claude plugin marketplace add <owner>/forge
+claude plugin install forge@forge
 ```
 
-After installing, edit your private profile at `~/.claude/rules/facundo-agent-config/profile.md`. Full details are in [docs/installation.md](docs/installation.md).
+After installing, edit your private profile at `~/.claude/rules/forge/profile.md`. Full details are in [docs/installation.md](docs/installation.md).
 
 ## Using it
 
@@ -155,7 +155,7 @@ The guard hook is a technical control. The rules are guidance. The hook stops ac
 ## Update and uninstall
 
 ```bash
-git pull && claude plugin marketplace update facundo-agent-config && claude plugin update forge@facundo-agent-config
+git pull && claude plugin marketplace update forge && claude plugin update forge@forge
 installers/install.sh                      # refresh the rules
 installers/uninstall.sh --dry-run          # preview removal; your profile and foreign config are kept
 ```

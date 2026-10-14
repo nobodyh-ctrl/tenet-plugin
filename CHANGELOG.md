@@ -5,7 +5,7 @@ All notable changes are documented here. The format follows [Keep a Changelog](h
 ## [Unreleased]
 
 ### Added
-- `forge` plugin and `facundo-agent-config` marketplace.
+- `forge` plugin and `forge` marketplace.
 - 16 skills.
   - Engineering: `plan-work`, `implement`, `review-code`, `verify-changes`, `documentation`, `devops-iac`.
   - Workflows: `feature`, `bugfix`, `release`, `project-init`.

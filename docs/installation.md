@@ -24,15 +24,15 @@ The installer never installs these tools. It reports what is missing and links t
 From GitHub, once the repository is published:
 
 ```bash
-claude plugin marketplace add <owner>/facundo-agent-config
-claude plugin install forge@facundo-agent-config
+claude plugin marketplace add <owner>/forge
+claude plugin install forge@forge
 ```
 
 From a local clone:
 
 ```bash
-claude plugin marketplace add /path/to/facundo-agent-config
-claude plugin install forge@facundo-agent-config
+claude plugin marketplace add /path/to/forge
+claude plugin install forge@forge
 ```
 
 The default scope is `user`, which means all your projects. To enable it for one repository only, use `--scope project`. That writes to the repository's `.claude/settings.json`, so teammates get the plugin too. Use `--scope local` for a project-only install that is not committed.
@@ -63,7 +63,7 @@ installers/install.sh --with-plugin --with-engram
 |---|---|---|
 | `-DryRun` | `--dry-run` | Show every planned operation; write nothing; run no CLI commands |
 | `-WithPermissions` | `--with-permissions` | Merge forge `ask`/`deny` rules into `settings.json` |
-| `-WithPlugin` | `--with-plugin` | Run `claude plugin marketplace add <repo>` and `claude plugin install forge@facundo-agent-config --scope user` |
+| `-WithPlugin` | `--with-plugin` | Run `claude plugin marketplace add <repo>` and `claude plugin install forge@forge --scope user` |
 | `-WithEngram` | `--with-engram` | Run `claude mcp add --scope user engram -- <engram> mcp --tools=agent`. Skipped if an `engram` entry already exists |
 | `-ConfigDir DIR` | `--config-dir DIR` | Target a different Claude config dir. The default is `$CLAUDE_CONFIG_DIR`, then `~/.claude` |
 | `-Restore ID` | `--restore ID` | Restore the files of a backup |
@@ -74,11 +74,11 @@ The core is `python scripts/agentcfg.py {install,uninstall,restore,status}`. The
 
 | Path | When | Notes |
 |---|---|---|
-| `~/.claude/rules/facundo-agent-config/*.md` | Always | Methodology rules, loaded in every session |
-| `~/.claude/rules/facundo-agent-config/profile.md` | Only if absent | Your private profile. Edit it; it is never overwritten |
+| `~/.claude/rules/forge/*.md` | Always | Methodology rules, loaded in every session |
+| `~/.claude/rules/forge/profile.md` | Only if absent | Your private profile. Edit it; it is never overwritten |
 | `~/.claude/settings.json` | `--with-permissions` | Only missing `ask`/`deny` rules are appended. Nothing else changes |
-| `~/.claude/facundo-agent-config/manifest.json` | Always | Ownership manifest (files with hashes, rules added, CLI registrations) |
-| `~/.claude/backups/facundo-agent-config/<id>/` | When something changes | Snapshot of every touched file, plus `index.json` |
+| `~/.claude/forge/manifest.json` | Always | Ownership manifest (files with hashes, rules added, CLI registrations) |
+| `~/.claude/backups/forge/<id>/` | When something changes | Snapshot of every touched file, plus `index.json` |
 | Plugin and marketplace entries, Engram MCP entry | `--with-plugin`, `--with-engram` | Written by the Claude Code CLI, not by forge |
 
 ### Safety guarantees (tested in `tests/test_installer.py`)
@@ -90,7 +90,7 @@ The core is `python scripts/agentcfg.py {install,uninstall,restore,status}`. The
 
 ## Personalize your profile
 
-Edit `~/.claude/rules/facundo-agent-config/profile.md` to set:
+Edit `~/.claude/rules/forge/profile.md` to set:
 - the language you want replies in;
 - what you already master and what you are learning;
 - your preferred defaults.
@@ -107,8 +107,8 @@ Keep it short, because it loads in every session. Do not put secrets, employer n
 
 ```bash
 git pull
-claude plugin marketplace update facundo-agent-config
-claude plugin update forge@facundo-agent-config
+claude plugin marketplace update forge
+claude plugin update forge@forge
 installers/install.sh            # or .\installers\install.ps1, to refresh the rules
 ```
 
@@ -132,7 +132,7 @@ Uninstall removes only what the manifest lists:
 
 Your own rules, settings, MCP servers and Engram data are untouched.
 
-To remove only the plugin: `claude plugin uninstall forge@facundo-agent-config` and `claude plugin marketplace remove facundo-agent-config`.
+To remove only the plugin: `claude plugin uninstall forge@forge` and `claude plugin marketplace remove forge`.
 
 ## Restore a backup
 

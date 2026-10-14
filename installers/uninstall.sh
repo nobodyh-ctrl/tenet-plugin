@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Removes only the components that facundo-agent-config installed (per its manifest).
+# Removes only the components that forge installed (per its manifest).
 # Foreign rules, settings, MCP servers and Engram data are preserved. The private profile is kept
 # unless --purge is given. Every removal is backed up; undo with install.sh --restore <id>.
 #

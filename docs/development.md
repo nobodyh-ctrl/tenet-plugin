@@ -5,7 +5,7 @@ This repository is developed with Spec-Driven Development using OpenSpec.
 ## Setup
 
 ```bash
-git clone https://github.com/<owner>/facundo-agent-config && cd facundo-agent-config
+git clone https://github.com/<owner>/forge && cd forge
 python --version          # 3.9+
 openspec --version        # 1.14+ (optional, for changing behavior)
 ```
@@ -14,7 +14,7 @@ To use your working copy as the installed plugin, add the clone as a local marke
 
 ```bash
 claude plugin marketplace add "$(pwd)"
-claude plugin install forge@facundo-agent-config
+claude plugin install forge@forge
 ```
 
 ## Change workflow

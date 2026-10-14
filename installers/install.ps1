@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-  Installs the facundo-agent-config complementary configuration on Windows.
+  Installs the forge complementary configuration on Windows.
 .DESCRIPTION
   Detects the environment, locates Python 3.9+ and delegates to scripts/agentcfg.py.
   Never installs third-party tools. Run with -DryRun first to preview every change.
@@ -19,7 +19,7 @@ param(
 $ErrorActionPreference = 'Stop'
 . (Join-Path $PSScriptRoot 'common.ps1')
 
-Write-Host ("facundo-agent-config installer - {0} / PowerShell {1}" -f [Environment]::OSVersion.VersionString, $PSVersionTable.PSVersion)
+Write-Host ("forge installer - {0} / PowerShell {1}" -f [Environment]::OSVersion.VersionString, $PSVersionTable.PSVersion)
 $python = Find-Python
 $cli = Join-Path (Split-Path $PSScriptRoot -Parent) 'scripts\agentcfg.py'
 

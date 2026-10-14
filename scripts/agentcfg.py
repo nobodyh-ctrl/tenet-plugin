@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Install, uninstall, restore and inspect the facundo-agent-config complementary configuration.
+"""Install, uninstall, restore and inspect the forge complementary configuration.
 
 What it manages (all tracked in an ownership manifest):
-  * methodology rules  -> <config>/rules/facundo-agent-config/*.md
-  * private profile    -> <config>/rules/facundo-agent-config/profile.md (created once, never overwritten)
+  * methodology rules  -> <config>/rules/forge/*.md
+  * private profile    -> <config>/rules/forge/profile.md (created once, never overwritten)
   * --with-permissions -> forge ask/deny rules merged into <config>/settings.json
   * --with-plugin      -> `claude plugin marketplace add` + `claude plugin install` (user scope)
   * --with-engram      -> `claude mcp add --scope user engram -- <engram> mcp --tools=agent`
@@ -19,9 +19,9 @@ import shutil
 import subprocess
 import sys
 
-TOOL = "facundo-agent-config"
-MARKETPLACE = "facundo-agent-config"
-PLUGIN_ID = "forge@facundo-agent-config"
+TOOL = "forge"
+MARKETPLACE = "forge"
+PLUGIN_ID = "forge@forge"
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RULES_SRC = os.path.join(REPO_ROOT, "global-config", "rules")
 PROFILE_TEMPLATE = os.path.join(REPO_ROOT, "global-config", "templates", "profile.md")
@@ -531,7 +531,7 @@ def status(config):
 
 
 def build_parser():
-    parser = argparse.ArgumentParser(prog="agentcfg", description="facundo-agent-config complementary installer")
+    parser = argparse.ArgumentParser(prog="agentcfg", description="forge complementary installer")
     sub = parser.add_subparsers(dest="command", required=True)
     for name in ("install", "uninstall", "restore", "status"):
         cmd = sub.add_parser(name)

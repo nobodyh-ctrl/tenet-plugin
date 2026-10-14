@@ -71,6 +71,12 @@
 - [x] 12.3 Fill the private profile with the user's stated technical context; verify it is outside the repository
 - [x] 12.4 Run the Engram cross-session retrieval and isolation checks with synthetic `forge-fixture-*` projects; record passed/failed/blocked
 
+## 13. Rename to forge and migrate the existing install
+
+- [x] 13.1 Replace every previous-name identifier (`facundo` + `-agent-config`) with `forge` (marketplace, installer paths, docs, specs, tests); verify a repository-wide grep for the old name finds nothing outside git history, then run the validator, the test suite, `claude plugin validate --strict` and `openspec validate --strict`
+- [x] 13.2 Verify an isolated install of `forge@forge` with the real CLI (16 skills, 6 agents, hook) and that the real `~/.claude` is unchanged
+- [x] 13.3 With explicit approval, migrate the user's install: uninstall the old one with the previous installer (keeping the profile), move the profile to `rules/forge/`, then install `forge@forge` with Engram wiring; verify with `doctor.py`, `claude plugin list` and `claude mcp get engram`
+
 ## Workflow follow-up
 
 - Present results and wait for approval before `/opsx:archive establish-forge-system`.

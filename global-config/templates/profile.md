@@ -1,6 +1,6 @@
 # Personal profile (private)
 
-<!-- Created once by the facundo-agent-config installer. Never overwritten by reinstalls.
+<!-- Created once by the forge installer. Never overwritten by reinstalls.
      Keep it short: it is loaded in every session. No secrets, employers or private project details. -->
 
 ## Communication

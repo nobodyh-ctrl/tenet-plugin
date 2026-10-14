@@ -7,7 +7,7 @@ Distribute the system's skills, agents and hooks as the `forge` Claude Code plug
 ## ADDED Requirements
 
 ### Requirement: Valid marketplace
-The repository SHALL contain `.claude-plugin/marketplace.json` named `facundo-agent-config` with an `owner` and a `forge` entry whose `source` is a relative path without `..`, and it SHALL pass `claude plugin validate .` with no errors.
+The repository SHALL contain `.claude-plugin/marketplace.json` named `forge` with an `owner` and a `forge` entry whose `source` is a relative path without `..`, and it SHALL pass `claude plugin validate .` with no errors.
 
 #### Scenario: Native validation
 - **WHEN** `claude plugin validate .` runs at the repository root
@@ -32,11 +32,11 @@ Skills, agents and hooks SHALL live in `skills/<name>/SKILL.md`, `agents/*.md` a
 - **THEN** the inventory lists 16 skills, 6 agents and the declared hooks
 
 ### Requirement: Native installation without external services
-Documentation SHALL describe installation with `claude plugin marketplace add <path|owner/repo>` and `claude plugin install forge@facundo-agent-config`, and the plugin MUST NOT declare MCP servers or require credentials.
+Documentation SHALL describe installation with `claude plugin marketplace add <path|owner/repo>` and `claude plugin install forge@forge`, and the plugin MUST NOT declare MCP servers or require credentials.
 
 #### Scenario: Isolated install
 - **WHEN** the marketplace is added from the local path and the plugin is installed with `CLAUDE_CONFIG_DIR` pointing to a temp directory
-- **THEN** `claude plugin list` shows `forge@facundo-agent-config` enabled and the real user configuration is unchanged
+- **THEN** `claude plugin list` shows `forge@forge` enabled and the real user configuration is unchanged
 
 ### Requirement: Read-only pre-approval scoped to the plugin
 Skills that read plugin files (manual sections, references, templates) SHALL declare `allowed-tools: Read(${CLAUDE_PLUGIN_ROOT}/**)` so those reads do not prompt, and no skill SHALL pre-approve any other tool or path.

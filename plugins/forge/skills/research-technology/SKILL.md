@@ -20,7 +20,7 @@ argument-hint: "[question]"
 4. **Compare alternatives.**
    - Use the criteria in `${CLAUDE_PLUGIN_ROOT}/manual/catalog/README.md`: purpose, compatibility, platforms, maintenance, security, data exposure, cost, overlap, license.
 5. **Record the outcome.**
-   - Propose a catalog entry update when relevant. Normative changes go through OpenSpec in the facundo-agent-config repo.
+   - Propose a catalog entry update when relevant. Normative changes go through OpenSpec in the forge repo.
    - `mem_save` the decision (type `decision`).
 6. **Next steps.** Prototype, lab, or adopt, with what would change the conclusion.
 

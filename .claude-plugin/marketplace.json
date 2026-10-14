@@ -1,5 +1,5 @@
 {
-  "name": "facundo-agent-config",
+  "name": "forge",
   "description": "Engineering system for Claude Code: methodology, workflows, Engineering Manual and guardrails.",
   "owner": {
     "name": "Facundo Diaz"

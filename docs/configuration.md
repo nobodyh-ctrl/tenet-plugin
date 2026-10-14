@@ -4,9 +4,9 @@ forge spreads its behavior over several Claude Code mechanisms. Each surface has
 
 | Layer | Location | Loaded | Owner | Contains |
 |---|---|---|---|---|
-| Plugin `forge` | Claude Code plugin cache (installed from the `facundo-agent-config` marketplace) | Skills and agents on demand. The guard hook runs on every matching tool call | Claude Code CLI (`claude plugin install`) | Skills, agents, guard hook, Engineering Manual |
-| User rules | `~/.claude/rules/facundo-agent-config/*.md` | Every session, every project | forge installer (manifest) | Methodology: core, SDD, memory, delegation, tokens, autonomy |
-| Private profile | `~/.claude/rules/facundo-agent-config/profile.md` | Every session | You (created once from a template, never overwritten) | Language, experience, learning goals, preferred defaults |
+| Plugin `forge` | Claude Code plugin cache (installed from the `forge` marketplace) | Skills and agents on demand. The guard hook runs on every matching tool call | Claude Code CLI (`claude plugin install`) | Skills, agents, guard hook, Engineering Manual |
+| User rules | `~/.claude/rules/forge/*.md` | Every session, every project | forge installer (manifest) | Methodology: core, SDD, memory, delegation, tokens, autonomy |
+| Private profile | `~/.claude/rules/forge/profile.md` | Every session | You (created once from a template, never overwritten) | Language, experience, learning goals, preferred defaults |
 | Optional permissions | `~/.claude/settings.json` → `permissions.ask` / `permissions.deny` | Every session | forge installer, only with `--with-permissions` (manifest) | Second-layer `ask`/`deny` rules |
 | Engram MCP entry | `~/.claude.json` → `mcpServers.engram` (user scope) | Every session | Claude Code CLI, called by the installer with `--with-engram` | `engram mcp --tools=agent` |
 | Engram data | `~/.engram/` | Through `mem_*` tools | Engram | Memories. forge never edits it directly |

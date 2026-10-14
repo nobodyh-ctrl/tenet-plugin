@@ -1,12 +1,12 @@
-# facundo-agent-config — development instructions
+# forge — development instructions
 
 Engineering system for Claude Code: the `forge` plugin, user-level methodology rules, the Engineering Manual and a complementary installer.
 
 ## Layout
 
-- `.claude-plugin/marketplace.json`: the marketplace (`facundo-agent-config`).
+- `.claude-plugin/marketplace.json`: the marketplace (`forge`).
 - `plugins/forge/`: the plugin, containing `skills/`, `agents/`, `hooks/` and `manual/` (the Engineering Manual and catalogs).
-- `global-config/`: rules and profile template that the installer copies to `~/.claude/rules/facundo-agent-config/`.
+- `global-config/`: rules and profile template that the installer copies to `~/.claude/rules/forge/`.
 - `installers/`: PowerShell and Bash wrappers over `scripts/agentcfg.py`.
 - `scripts/`: `validate.py`, `doctor.py`, `session_metrics.py`.
 - `tests/`: stdlib `unittest`, run against temp dirs only.

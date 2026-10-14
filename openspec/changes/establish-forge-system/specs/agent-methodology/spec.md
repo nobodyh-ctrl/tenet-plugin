@@ -7,7 +7,7 @@ Define, in short always-loaded user-level rules, how agents discover context, ap
 ## ADDED Requirements
 
 ### Requirement: Concise always-loaded rules
-The methodology SHALL be shipped as Markdown rules for `~/.claude/rules/facundo-agent-config/` totalling at most 120 lines, with detailed guidance moved to skills or the Engineering Manual and referenced, not copied.
+The methodology SHALL be shipped as Markdown rules for `~/.claude/rules/forge/` totalling at most 120 lines, with detailed guidance moved to skills or the Engineering Manual and referenced, not copied.
 
 #### Scenario: Size budget
 - **WHEN** the validator counts lines across `global-config/rules/*.md`

@@ -19,7 +19,7 @@ argument-hint: "[topic]"
    - **Skip option:** the user can say "skip checks". Professional tasks never require checks.
 7. **Record gaps and next steps.** Ask for confirmation before writing, then save to one of:
    - **Engram (preferred):** `mem_save` with scope `personal`, topic key `learning/<topic>`, content listing what was mastered, the gaps, misconceptions corrected, and the next step.
-   - **Fallback file:** `~/.claude/facundo-agent-config/learning-progress.md`. Append a dated section. This file is outside `~/.claude/rules/`, so it is never auto-loaded.
+   - **Fallback file:** `~/.claude/forge/learning-progress.md`. Append a dated section. This file is outside `~/.claude/rules/`, so it is never auto-loaded.
 
 ## Verification
 - A diagnostic was done and a goal was stated.

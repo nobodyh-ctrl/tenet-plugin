@@ -16,7 +16,7 @@
 | Agents | `plugins/forge/agents/` | Least-privilege subagents with fixed output contracts |
 | Guard hook | `plugins/forge/hooks/` | `PreToolUse` policy engine. Rules are data in `policy.json` |
 | Engineering Manual | `plugins/forge/manual/` | Standards and catalogs. Skills reference it via `${CLAUDE_PLUGIN_ROOT}` |
-| Methodology rules | `global-config/rules/` → `~/.claude/rules/facundo-agent-config/` | Always-on behavior. Plugins cannot ship this |
+| Methodology rules | `global-config/rules/` → `~/.claude/rules/forge/` | Always-on behavior. Plugins cannot ship this |
 | Installer | `installers/` + `scripts/agentcfg.py` | Rules, profile, optional permissions and CLI registrations, tracked in a manifest |
 | Validation | `scripts/validate.py`, `tests/`, CI | Structure, content contracts, secrets, behavior |
 | Specs | `openspec/` | This repository is itself developed with OpenSpec |
@@ -26,7 +26,7 @@
 ```mermaid
 flowchart TB
   forge[forge plugin<br/>skills, agents, hook, manual] -->|owned by| CC[Claude Code plugin manager]
-  rules[~/.claude/rules/facundo-agent-config] -->|owned by| inst[forge installer manifest]
+  rules[~/.claude/rules/forge] -->|owned by| inst[forge installer manifest]
   perms[settings.json forge ask/deny] -->|owned by| inst
   mcp[.claude.json mcpServers.engram] -->|written only by| cli[claude mcp add/remove]
   db[(~/.engram data)] -->|owned by| engram[Engram]

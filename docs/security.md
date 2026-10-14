@@ -46,7 +46,7 @@ See [installation.md](installation.md). The installer supports dry-run, timestam
 - **The guard is not a sandbox.** Claude Code permission rules and hooks match the command text, so obfuscation evades them. Examples: `sh -c "$(printf ...)"`, an absolute binary path, or a script that runs the command indirectly. The guard targets accidents and the forms an agent normally writes. It is not built to stop a deliberately adversarial agent. Use containers or VMs for untrusted work.
 - **Fail-open.** If Python 3.9+ is missing, the input is invalid, or the policy cannot be loaded, the guard exits 0 without a decision and prints a short warning. A fail-closed guard would block every tool. `scripts/doctor.py` reports whether the guard can run.
 - **Windows shell.** The hook runs `bash`. Claude Code on Windows uses Git Bash for hooks when it is installed. Without Git Bash the hook command fails, which Claude Code treats as non-blocking, so the guard is inactive.
-- **Prose rules are not guarantees.** The methodology rules (`~/.claude/rules/facundo-agent-config/`) and skills guide behavior, but Claude may not follow them. They are never presented as enforcement.
+- **Prose rules are not guarantees.** The methodology rules (`~/.claude/rules/forge/`) and skills guide behavior, but Claude may not follow them. They are never presented as enforcement.
 - **Plugin agents.** Claude Code ignores `permissionMode`, `hooks` and `mcpServers` in plugin agent files. Agent restrictions therefore come from each agent's `tools` list plus the guard hook.
 
 ## Reporting

@@ -12,7 +12,7 @@ Each new project starts without a shared engineering methodology, persistent mem
   - Learning skills: `learn-concept`, `hands-on-lab`, `research-technology`, `aws-security`, `networking-lab`, `study-topic`.
   - Agents: `architect`, `explorer`, `implementer`, `reviewer`, `security-reviewer`, `tutor`.
   - A `PreToolUse` guard hook that denies clearly destructive commands, asks on risky ones, and enforces read-only Bash for the reviewer agents.
-- Global methodology as short user-level rules: context discovery, SDD/OpenSpec policy, task sizing, the Engram memory lifecycle, delegation and orchestration, token efficiency, verification, and autonomy limits. The rules are installed into `~/.claude/rules/facundo-agent-config/`.
+- Global methodology as short user-level rules: context discovery, SDD/OpenSpec policy, task sizing, the Engram memory lifecycle, delegation and orchestration, token efficiency, verification, and autonomy limits. The rules are installed into `~/.claude/rules/forge/`.
 - Engineering Manual, versioned and loaded on demand by skills. It covers core engineering, delivery/infrastructure, security, a technology catalog, and a tool catalog. Each item is marked mandatory, recommended, or experimental. AWS is the first cloud reference; the principles stay provider-agnostic.
 - Engram integration wired directly through the native `claude mcp add` CLI. This is an opt-in installer flag that detects conflicts with existing entries. Forge owns a compact memory protocol rule and a verification procedure using synthetic data.
 - Gentle AI is not used. Two of its ideas are adopted as forge rules: sizing tasks by whether they can be resumed from the request and the diff, and delegating only when there is evidence it helps.
@@ -54,7 +54,7 @@ Each new project starts without a shared engineering methodology, persistent mem
 - **New files only in this repository.** OpenSpec's generated `.claude/` files are kept.
 - **User configuration, only after explicit approval in the installation phase:**
   - Engram upgrade to 3.4.0 (after backing up `~/.engram`) and its user-scope MCP entry.
-  - `~/.claude/rules/facundo-agent-config/`.
+  - `~/.claude/rules/forge/`.
   - Plugin and marketplace entries written by the Claude Code CLI.
   - Optional permission rules.
 - **Dependencies:** Python 3.9+, Claude Code ≥ 2.1 and Engram ≥ 3.4 (recommended). OpenSpec is optional per project. Gentle AI is not required.

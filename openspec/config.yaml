@@ -1,8 +1,8 @@
 schema: spec-driven
 
 context: |
-  Project: forge. Reusable engineering system for Claude Code, distributed as the
-  `forge` plugin (own marketplace) plus a complementary installer for what plugins cannot ship
+  Project: tenet. Reusable engineering system for Claude Code, distributed as the
+  `tenet` plugin (own marketplace) plus a complementary installer for what plugins cannot ship
   (user-level rules, private profile, optional permissions).
   Ownership model: OpenSpec owns specs and change lifecycle; Engram owns persistent memory (its
   MCP entry is added/removed only via the `claude mcp` CLI); this repo owns methodology,

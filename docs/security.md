@@ -1,6 +1,6 @@
 # Security model
 
-This document explains what forge actually enforces, what it only recommends, and where the limits are.
+This document explains what tenet actually enforces, what it only recommends, and where the limits are.
 
 ## Threat model
 
@@ -19,7 +19,7 @@ This document explains what forge actually enforces, what it only recommends, an
 
 ### Guard hook
 
-The guard is `plugins/forge/hooks/`, registered as a plugin `PreToolUse` hook. It covers `Bash`, `PowerShell`, `Read`, `Edit`, `Write`, `MultiEdit` and `NotebookEdit`.
+The guard is `plugins/tenet/hooks/`, registered as a plugin `PreToolUse` hook. It covers `Bash`, `PowerShell`, `Read`, `Edit`, `Write`, `MultiEdit` and `NotebookEdit`.
 
 - **Rules are data.** They live in `policy.json`, each with an id, a decision and a reason. Tests in `tests/test_guard.py` cover both blocking and legitimate commands.
 - **Evaluation order:**
@@ -28,7 +28,7 @@ The guard is `plugins/forge/hooks/`, registered as a plugin `PreToolUse` hook. I
   3. Risky `ask`.
   4. No decision: the normal Claude Code permission flow continues.
 - **Messages cite only the rule id and a fixed reason.** The command and file contents are never echoed, so secrets in a command line do not leak into the transcript.
-- **Reviewer enforcement.** When the hook input carries `agent_type` `reviewer` or `security-reviewer` (with or without the `forge:` prefix), only allow-listed read-only commands pass. The guard rejects:
+- **Reviewer enforcement.** When the hook input carries `agent_type` `reviewer` or `security-reviewer` (with or without the `tenet:` prefix), only allow-listed read-only commands pass. The guard rejects:
   - write redirections, `$(...)`, backticks;
   - `-delete`, `-exec`, `sed -i`, `tee`, `xargs`;
   - any git subcommand outside the read-only list.
@@ -46,7 +46,7 @@ See [installation.md](installation.md). The installer supports dry-run, timestam
 - **The guard is not a sandbox.** Claude Code permission rules and hooks match the command text, so obfuscation evades them. Examples: `sh -c "$(printf ...)"`, an absolute binary path, or a script that runs the command indirectly. The guard targets accidents and the forms an agent normally writes. It is not built to stop a deliberately adversarial agent. Use containers or VMs for untrusted work.
 - **Fail-open.** If Python 3.9+ is missing, the input is invalid, or the policy cannot be loaded, the guard exits 0 without a decision and prints a short warning. A fail-closed guard would block every tool. `scripts/doctor.py` reports whether the guard can run.
 - **Windows shell.** The hook runs `bash`. Claude Code on Windows uses Git Bash for hooks when it is installed. Without Git Bash the hook command fails, which Claude Code treats as non-blocking, so the guard is inactive.
-- **Prose rules are not guarantees.** The methodology rules (`~/.claude/rules/forge/`) and skills guide behavior, but Claude may not follow them. They are never presented as enforcement.
+- **Prose rules are not guarantees.** The methodology rules (`~/.claude/rules/tenet/`) and skills guide behavior, but Claude may not follow them. They are never presented as enforcement.
 - **Plugin agents.** Claude Code ignores `permissionMode`, `hooks` and `mcpServers` in plugin agent files. Agent restrictions therefore come from each agent's `tools` list plus the guard hook.
 
 ## Reporting

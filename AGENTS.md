@@ -1,12 +1,12 @@
-# forge — development instructions
+# tenet — development instructions
 
-Engineering system for Claude Code: the `forge` plugin, user-level methodology rules, the Engineering Manual and a complementary installer.
+Engineering system for Claude Code: the `tenet` plugin, user-level methodology rules, the Engineering Manual and a complementary installer.
 
 ## Layout
 
-- `.claude-plugin/marketplace.json`: the marketplace (`forge`).
-- `plugins/forge/`: the plugin, containing `skills/`, `agents/`, `hooks/` and `manual/` (the Engineering Manual and catalogs).
-- `global-config/`: rules and profile template that the installer copies to `~/.claude/rules/forge/`.
+- `.claude-plugin/marketplace.json`: the marketplace (`tenet`).
+- `plugins/tenet/`: the plugin, containing `skills/`, `agents/`, `hooks/` and `manual/` (the Engineering Manual and catalogs).
+- `global-config/`: rules and profile template that the installer copies to `~/.claude/rules/tenet/`.
 - `installers/`: PowerShell and Bash wrappers over `scripts/agentcfg.py`.
 - `scripts/`: `validate.py`, `doctor.py`, `session_metrics.py`.
 - `tests/`: stdlib `unittest`, run against temp dirs only.
@@ -25,6 +25,6 @@ Engineering system for Claude Code: the `forge` plugin, user-level methodology r
 ```bash
 python scripts/validate.py
 python -m unittest discover -s tests
-claude plugin validate . && claude plugin validate plugins/forge
+claude plugin validate . && claude plugin validate plugins/tenet
 openspec validate --all --strict
 ```

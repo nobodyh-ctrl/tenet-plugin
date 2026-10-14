@@ -1,6 +1,6 @@
-"""Tests for the forge PreToolUse guard (plugins/forge/hooks/guard.py).
+"""Tests for the tenet PreToolUse guard (plugins/tenet/hooks/guard.py).
 
-forge:synthetic-fixture - all paths and tokens in this file are fake test data.
+tenet:synthetic-fixture - all paths and tokens in this file are fake test data.
 """
 import importlib.util
 import json
@@ -10,9 +10,9 @@ import sys
 import unittest
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-GUARD_PATH = os.path.join(ROOT, "plugins", "forge", "hooks", "guard.py")
+GUARD_PATH = os.path.join(ROOT, "plugins", "tenet", "hooks", "guard.py")
 
-spec = importlib.util.spec_from_file_location("forge_guard", GUARD_PATH)
+spec = importlib.util.spec_from_file_location("tenet_guard", GUARD_PATH)
 guard = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(guard)
 POLICY = guard.load_policy()
@@ -98,7 +98,7 @@ class LegitimateCommands(unittest.TestCase):
 
 class ReviewerReadOnly(unittest.TestCase):
     def test_reviewer_read_only_allowed(self):
-        for agent in ["reviewer", "forge:reviewer", "forge:security-reviewer"]:
+        for agent in ["reviewer", "tenet:reviewer", "tenet:security-reviewer"]:
             for command in ["git diff HEAD~1", "git log --oneline -5", "git status", "rg TODO src",
                             "cat README.md | head -20", "git branch -a", "find . -name '*.py'", "ls 2>/dev/null"]:
                 with self.subTest(agent=agent, command=command):
@@ -109,12 +109,12 @@ class ReviewerReadOnly(unittest.TestCase):
                         "echo x > file.txt", "sed -i s/a/b/ f", "find . -delete", "python -c 'print(1)'",
                         "cat $(echo secret)", "git stash", "rm file", "git diff > patch.diff"]:
             with self.subTest(command=command):
-                decision = bash(command, agent="forge:reviewer")
+                decision = bash(command, agent="tenet:reviewer")
                 self.assertEqual(kind(decision), "deny")
                 self.assertEqual(decision[1], "deny-reviewer-write")
 
     def test_non_reviewer_agents_unrestricted(self):
-        self.assertIsNone(bash("git commit -m x", agent="forge:implementer"))
+        self.assertIsNone(bash("git commit -m x", agent="tenet:implementer"))
 
 
 class SecretFiles(unittest.TestCase):

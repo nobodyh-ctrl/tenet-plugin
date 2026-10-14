@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Structural, content and secret validation for forge.
+"""Structural, content and secret validation for tenet.
 
 Stdlib only. Usage: python scripts/validate.py [--root PATH]
 Exits 1 on any error. `claude plugin validate` remains the authoritative manifest check;
@@ -12,7 +12,7 @@ import re
 import subprocess
 import sys
 
-PLUGIN_REL = os.path.join("plugins", "forge")
+PLUGIN_REL = os.path.join("plugins", "tenet")
 SKILLS = [
     "plan-work", "implement", "review-code", "verify-changes", "documentation", "devops-iac",
     "feature", "bugfix", "release", "project-init",
@@ -50,7 +50,7 @@ REQUIRED_TOOLS = ["Claude Code", "OpenSpec", "Engram", "Gentle AI", "Gentleman G
 TECH_FIELDS = ["Purpose", "Use cases", "Trade-offs", "Security", "Cost", "Operational complexity", "Alternatives", "Status"]
 CATALOG_CRITERIA = ["purpose", "compatibility", "windows", "maintenance", "documentation", "security", "data exposure",
                     "installation", "token", "cost", "overlap", "reliability", "license"]
-SYNTHETIC_MARKER = "forge:synthetic-fixture"
+SYNTHETIC_MARKER = "tenet:synthetic-fixture"
 SECRET_PATTERNS = [
     ("aws-access-key", re.compile(r"\b(AKIA|ASIA)[0-9A-Z]{16}\b")),
     ("private-key", re.compile(r"-----BEGIN (RSA |EC |DSA |OPENSSH |ENCRYPTED )?PRIVATE KEY-----")),

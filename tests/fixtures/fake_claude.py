@@ -1,4 +1,4 @@
-"""Fake `claude` CLI for installer tests (forge:synthetic-fixture).
+"""Fake `claude` CLI for installer tests (tenet:synthetic-fixture).
 
 Keeps its state under $CLAUDE_CONFIG_DIR and logs every invocation to calls.log there.
 Mimics the real CLI's storage of user-scope MCP servers in $CLAUDE_CONFIG_DIR/.claude.json.
@@ -32,7 +32,7 @@ state = load(state_path, {"plugins": [], "marketplaces": []})
 if args[:2] == ["plugin", "list"]:
     print(json.dumps([{"id": p, "scope": "user", "enabled": True} for p in state["plugins"]]))
 elif args[:3] == ["plugin", "marketplace", "add"]:
-    state["marketplaces"].append("forge")
+    state["marketplaces"].append("tenet")
 elif args[:3] == ["plugin", "marketplace", "remove"]:
     state["marketplaces"] = [m for m in state["marketplaces"] if m != args[3]]
 elif args[:2] == ["plugin", "install"]:

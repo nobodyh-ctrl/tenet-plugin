@@ -1,4 +1,4 @@
-# Autonomy limits (forge)
+# Autonomy limits (tenet)
 
 Routine, reversible local work inside the approved scope may proceed. Ask for explicit approval before:
 - global installs or configuration changes (packages, CLIs, `~/.claude`, MCP servers, git global config);

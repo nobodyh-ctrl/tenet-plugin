@@ -1,7 +1,7 @@
 # persistent-memory Specification
 
 ## Purpose
-Give agents verified cross-session memory through Engram, wired with the native Claude Code CLI, with a forge-owned protocol for what to retrieve, save and hand off, and strict isolation and secret rules.
+Give agents verified cross-session memory through Engram, wired with the native Claude Code CLI, with a tenet-owned protocol for what to retrieve, save and hand off, and strict isolation and secret rules.
 
 ## Requirements
 

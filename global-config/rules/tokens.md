@@ -1,4 +1,4 @@
-# Token and context efficiency (forge)
+# Token and context efficiency (tenet)
 
 Optimize total task cost (tokens, tool calls, rework), never at the expense of correctness or security.
 - Read narrowly: targeted search, line ranges, symbol skeletons; whole files only when needed. Do not re-read unchanged files.

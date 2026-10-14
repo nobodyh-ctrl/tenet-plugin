@@ -1,8 +1,8 @@
 # Installation
 
-forge has two independent parts:
+tenet has two independent parts:
 
-1. **The `forge` plugin:** skills, agents, the guard hook and the Engineering Manual. It is installed with Claude Code's native plugin commands.
+1. **The `tenet` plugin:** skills, agents, the guard hook and the Engineering Manual. It is installed with Claude Code's native plugin commands.
 2. **Complementary configuration:** methodology rules, a private profile, and optionally permission rules and Engram wiring. Plugins cannot ship these, so the repository's installer adds them.
 
 You can use either part alone. Most people want both.
@@ -24,20 +24,20 @@ The installer never installs these tools. It reports what is missing and links t
 From GitHub, once the repository is published:
 
 ```bash
-claude plugin marketplace add <owner>/forge
-claude plugin install forge@forge
+claude plugin marketplace add <owner>/tenet
+claude plugin install tenet@tenet
 ```
 
 From a local clone:
 
 ```bash
-claude plugin marketplace add /path/to/forge
-claude plugin install forge@forge
+claude plugin marketplace add /path/to/tenet
+claude plugin install tenet@tenet
 ```
 
 The default scope is `user`, which means all your projects. To enable it for one repository only, use `--scope project`. That writes to the repository's `.claude/settings.json`, so teammates get the plugin too. Use `--scope local` for a project-only install that is not committed.
 
-Check it with `claude plugin list` and `claude plugin details forge`.
+Check it with `claude plugin list` and `claude plugin details tenet`.
 
 ## 2. Complementary configuration
 
@@ -62,8 +62,8 @@ installers/install.sh --with-plugin --with-engram
 | PowerShell | Bash | Effect |
 |---|---|---|
 | `-DryRun` | `--dry-run` | Show every planned operation; write nothing; run no CLI commands |
-| `-WithPermissions` | `--with-permissions` | Merge forge `ask`/`deny` rules into `settings.json` |
-| `-WithPlugin` | `--with-plugin` | Run `claude plugin marketplace add <repo>` and `claude plugin install forge@forge --scope user` |
+| `-WithPermissions` | `--with-permissions` | Merge tenet `ask`/`deny` rules into `settings.json` |
+| `-WithPlugin` | `--with-plugin` | Run `claude plugin marketplace add <repo>` and `claude plugin install tenet@tenet --scope user` |
 | `-WithEngram` | `--with-engram` | Run `claude mcp add --scope user engram -- <engram> mcp --tools=agent`. Skipped if an `engram` entry already exists |
 | `-ConfigDir DIR` | `--config-dir DIR` | Target a different Claude config dir. The default is `$CLAUDE_CONFIG_DIR`, then `~/.claude` |
 | `-Restore ID` | `--restore ID` | Restore the files of a backup |
@@ -74,12 +74,12 @@ The core is `python scripts/agentcfg.py {install,uninstall,restore,status}`. The
 
 | Path | When | Notes |
 |---|---|---|
-| `~/.claude/rules/forge/*.md` | Always | Methodology rules, loaded in every session |
-| `~/.claude/rules/forge/profile.md` | Only if absent | Your private profile. Edit it; it is never overwritten |
+| `~/.claude/rules/tenet/*.md` | Always | Methodology rules, loaded in every session |
+| `~/.claude/rules/tenet/profile.md` | Only if absent | Your private profile. Edit it; it is never overwritten |
 | `~/.claude/settings.json` | `--with-permissions` | Only missing `ask`/`deny` rules are appended. Nothing else changes |
-| `~/.claude/forge/manifest.json` | Always | Ownership manifest (files with hashes, rules added, CLI registrations) |
-| `~/.claude/backups/forge/<id>/` | When something changes | Snapshot of every touched file, plus `index.json` |
-| Plugin and marketplace entries, Engram MCP entry | `--with-plugin`, `--with-engram` | Written by the Claude Code CLI, not by forge |
+| `~/.claude/tenet/manifest.json` | Always | Ownership manifest (files with hashes, rules added, CLI registrations) |
+| `~/.claude/backups/tenet/<id>/` | When something changes | Snapshot of every touched file, plus `index.json` |
+| Plugin and marketplace entries, Engram MCP entry | `--with-plugin`, `--with-engram` | Written by the Claude Code CLI, not by tenet |
 
 ### Safety guarantees (tested in `tests/test_installer.py`)
 
@@ -90,25 +90,25 @@ The core is `python scripts/agentcfg.py {install,uninstall,restore,status}`. The
 
 ## Personalize your profile
 
-Edit `~/.claude/rules/forge/profile.md` to set:
+Edit `~/.claude/rules/tenet/profile.md` to set:
 - the language you want replies in;
 - what you already master and what you are learning;
 - your preferred defaults.
 
 Keep it short, because it loads in every session. Do not put secrets, employer names or private project details in it.
 
-## Using forge in a project
+## Using tenet in a project
 
-- **Nothing to install per project.** Skills are available everywhere: `/forge:feature`, `/forge:bugfix`, `/forge:project-init`, `/forge:study-topic`, and so on.
-- **OpenSpec in a project.** Run `/forge:project-init`, or run `openspec init --tools claude` yourself. forge never initializes it automatically.
+- **Nothing to install per project.** Skills are available everywhere: `/tenet:feature`, `/tenet:bugfix`, `/tenet:project-init`, `/tenet:study-topic`, and so on.
+- **OpenSpec in a project.** Run `/tenet:project-init`, or run `openspec init --tools claude` yourself. tenet never initializes it automatically.
 - **Pin the Engram project name.** Create `.engram/config.json` with `{"project_name": "<name>"}`. `project-init` offers this.
 
 ## Update
 
 ```bash
 git pull
-claude plugin marketplace update forge
-claude plugin update forge@forge
+claude plugin marketplace update tenet
+claude plugin update tenet@tenet
 installers/install.sh            # or .\installers\install.ps1, to refresh the rules
 ```
 
@@ -126,13 +126,13 @@ PowerShell: `.\installers\uninstall.ps1 [-DryRun] [-Purge]`.
 
 Uninstall removes only what the manifest lists:
 - the rule files (edited ones are backed up first);
-- the permission rules forge added;
+- the permission rules tenet added;
 - the plugin and marketplace, if the installer registered them;
 - the Engram MCP entry, if the installer added it.
 
 Your own rules, settings, MCP servers and Engram data are untouched.
 
-To remove only the plugin: `claude plugin uninstall forge@forge` and `claude plugin marketplace remove forge`.
+To remove only the plugin: `claude plugin uninstall tenet@tenet` and `claude plugin marketplace remove tenet`.
 
 ## Restore a backup
 

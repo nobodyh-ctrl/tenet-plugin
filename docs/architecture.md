@@ -11,12 +11,12 @@
 
 | Component | Location | Responsibility |
 |---|---|---|
-| Marketplace | `.claude-plugin/marketplace.json` | Lists the `forge` plugin for native installation |
-| Skills | `plugins/forge/skills/` | Procedures: engineering, workflows, learning. Loaded when invoked or relevant |
-| Agents | `plugins/forge/agents/` | Least-privilege subagents with fixed output contracts |
-| Guard hook | `plugins/forge/hooks/` | `PreToolUse` policy engine. Rules are data in `policy.json` |
-| Engineering Manual | `plugins/forge/manual/` | Standards and catalogs. Skills reference it via `${CLAUDE_PLUGIN_ROOT}` |
-| Methodology rules | `global-config/rules/` → `~/.claude/rules/forge/` | Always-on behavior. Plugins cannot ship this |
+| Marketplace | `.claude-plugin/marketplace.json` | Lists the `tenet` plugin for native installation |
+| Skills | `plugins/tenet/skills/` | Procedures: engineering, workflows, learning. Loaded when invoked or relevant |
+| Agents | `plugins/tenet/agents/` | Least-privilege subagents with fixed output contracts |
+| Guard hook | `plugins/tenet/hooks/` | `PreToolUse` policy engine. Rules are data in `policy.json` |
+| Engineering Manual | `plugins/tenet/manual/` | Standards and catalogs. Skills reference it via `${CLAUDE_PLUGIN_ROOT}` |
+| Methodology rules | `global-config/rules/` → `~/.claude/rules/tenet/` | Always-on behavior. Plugins cannot ship this |
 | Installer | `installers/` + `scripts/agentcfg.py` | Rules, profile, optional permissions and CLI registrations, tracked in a manifest |
 | Validation | `scripts/validate.py`, `tests/`, CI | Structure, content contracts, secrets, behavior |
 | Specs | `openspec/` | This repository is itself developed with OpenSpec |
@@ -25,9 +25,9 @@
 
 ```mermaid
 flowchart TB
-  forge[forge plugin<br/>skills, agents, hook, manual] -->|owned by| CC[Claude Code plugin manager]
-  rules[~/.claude/rules/forge] -->|owned by| inst[forge installer manifest]
-  perms[settings.json forge ask/deny] -->|owned by| inst
+  tenet[tenet plugin<br/>skills, agents, hook, manual] -->|owned by| CC[Claude Code plugin manager]
+  rules[~/.claude/rules/tenet] -->|owned by| inst[tenet installer manifest]
+  perms[settings.json tenet ask/deny] -->|owned by| inst
   mcp[.claude.json mcpServers.engram] -->|written only by| cli[claude mcp add/remove]
   db[(~/.engram data)] -->|owned by| engram[Engram]
   specs[repo/openspec] -->|owned by| openspec[OpenSpec per project]
@@ -37,7 +37,7 @@ flowchart TB
 ## Request flow
 
 1. A session starts. Claude Code loads the user rules (methodology and profile) and the plugin's skill and agent descriptions.
-2. The user invokes a workflow, such as `/forge:feature`, or Claude picks a skill that matches the request.
+2. The user invokes a workflow, such as `/tenet:feature`, or Claude picks a skill that matches the request.
 3. The skill reads only the manual sections and specs it needs, and queries Engram with targeted searches.
 4. Every tool call passes through the guard hook first: deny, ask, or no decision.
 5. Subagents run only with a named reason. Their Bash calls go through the same hook, and reviewers are held to read-only.

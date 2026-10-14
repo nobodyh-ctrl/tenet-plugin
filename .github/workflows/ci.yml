@@ -35,13 +35,13 @@ jobs:
         with:
           node-version: "22"
       - name: ShellCheck
-        run: shellcheck installers/*.sh plugins/forge/hooks/run-guard.sh
+        run: shellcheck installers/*.sh plugins/tenet/hooks/run-guard.sh
       - name: Install CLIs (no credentials needed for validation)
         run: npm install -g @anthropic-ai/claude-code @fission-ai/openspec@1.14.1
       - name: claude plugin validate
         run: |
           claude plugin validate . --strict
-          claude plugin validate plugins/forge --strict
+          claude plugin validate plugins/tenet --strict
       - name: openspec validate
         env:
           OPENSPEC_TELEMETRY: "0"

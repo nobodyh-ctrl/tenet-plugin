@@ -1,6 +1,6 @@
 """Tests for scripts/session_metrics.py and scripts/doctor.py.
 
-forge:synthetic-fixture - transcripts and secrets in this file are fake test data.
+tenet:synthetic-fixture - transcripts and secrets in this file are fake test data.
 """
 import hashlib
 import json
@@ -28,7 +28,7 @@ def assistant(message_id, usage=None, tools=(), sidechain=False):
 
 class Metrics(unittest.TestCase):
     def setUp(self):
-        self.tmp = tempfile.mkdtemp(prefix="forge-metrics-")
+        self.tmp = tempfile.mkdtemp(prefix="tenet-metrics-")
 
     def tearDown(self):
         shutil.rmtree(self.tmp, ignore_errors=True)
@@ -87,7 +87,7 @@ class Metrics(unittest.TestCase):
 
 class Doctor(unittest.TestCase):
     def test_doctor_is_read_only(self):
-        tmp = tempfile.mkdtemp(prefix="forge-doctor-")
+        tmp = tempfile.mkdtemp(prefix="tenet-doctor-")
         try:
             config = os.path.join(tmp, "cfg")
             os.makedirs(os.path.join(config, "rules", "x"))

@@ -1,6 +1,6 @@
 """Tests for scripts/validate.py.
 
-forge:synthetic-fixture - secrets and paths in this file are fake test data.
+tenet:synthetic-fixture - secrets and paths in this file are fake test data.
 """
 import importlib.util
 import json
@@ -11,7 +11,7 @@ import tempfile
 import unittest
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-spec = importlib.util.spec_from_file_location("forge_validate", os.path.join(ROOT, "scripts", "validate.py"))
+spec = importlib.util.spec_from_file_location("tenet_validate", os.path.join(ROOT, "scripts", "validate.py"))
 validate = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(validate)
 
@@ -20,7 +20,7 @@ IGNORE = shutil.ignore_patterns(".git", "local", "__pycache__", "node_modules")
 
 class RepoCopy(unittest.TestCase):
     def setUp(self):
-        self.tmp = tempfile.mkdtemp(prefix="forge-validate-")
+        self.tmp = tempfile.mkdtemp(prefix="tenet-validate-")
         self.root = os.path.join(self.tmp, "repo")
         shutil.copytree(ROOT, self.root, ignore=IGNORE)
 
@@ -52,19 +52,19 @@ class ValidRepository(RepoCopy):
 
 class BrokenCopies(RepoCopy):
     def test_skill_without_description(self):
-        self.edit("plugins/forge/skills/plan-work/SKILL.md", lambda t: re.sub(r"^description:.*\n", "", t, flags=re.M))
-        self.assertError("plugins/forge/skills/plan-work/SKILL.md: missing description")
+        self.edit("plugins/tenet/skills/plan-work/SKILL.md", lambda t: re.sub(r"^description:.*\n", "", t, flags=re.M))
+        self.assertError("plugins/tenet/skills/plan-work/SKILL.md: missing description")
 
     def test_skill_reading_plugin_without_preapproval(self):
-        self.edit("plugins/forge/skills/devops-iac/SKILL.md", lambda t: t.replace("allowed-tools: Read(${CLAUDE_PLUGIN_ROOT}/**)\n", ""))
+        self.edit("plugins/tenet/skills/devops-iac/SKILL.md", lambda t: t.replace("allowed-tools: Read(${CLAUDE_PLUGIN_ROOT}/**)\n", ""))
         self.assertError("does not pre-approve")
 
     def test_skill_with_broader_preapproval(self):
-        self.edit("plugins/forge/skills/plan-work/SKILL.md", lambda t: t.replace("allowed-tools: Read(${CLAUDE_PLUGIN_ROOT}/**)", "allowed-tools: Bash, Read"))
+        self.edit("plugins/tenet/skills/plan-work/SKILL.md", lambda t: t.replace("allowed-tools: Read(${CLAUDE_PLUGIN_ROOT}/**)", "allowed-tools: Bash, Read"))
         self.assertError("allowed-tools may only be")
 
     def test_version_skill_must_not_auto_invoke(self):
-        self.edit("plugins/forge/skills/version/SKILL.md", lambda t: t.replace("disable-model-invocation: true\n", ""))
+        self.edit("plugins/tenet/skills/version/SKILL.md", lambda t: t.replace("disable-model-invocation: true\n", ""))
         self.assertError("version skill must set disable-model-invocation: true")
 
     def test_release_notes_required_for_current_version(self):
@@ -86,17 +86,17 @@ class BrokenCopies(RepoCopy):
     def test_parent_traversal_in_source(self):
         def traverse(text):
             data = json.loads(text)
-            data["plugins"][0]["source"] = "./plugins/../plugins/forge"
+            data["plugins"][0]["source"] = "./plugins/../plugins/tenet"
             return json.dumps(data)
         self.edit(".claude-plugin/marketplace.json", traverse)
         self.assertError("contains '..'")
 
     def test_non_implementer_with_edit(self):
-        self.edit("plugins/forge/agents/reviewer.md", lambda t: t.replace("tools: Read, Grep, Glob, Bash", "tools: Read, Grep, Glob, Bash, Edit"))
+        self.edit("plugins/tenet/agents/reviewer.md", lambda t: t.replace("tools: Read, Grep, Glob, Bash", "tools: Read, Grep, Glob, Bash, Edit"))
         self.assertError("only implementer may have write tools")
 
     def test_ignored_agent_field(self):
-        self.edit("plugins/forge/agents/tutor.md", lambda t: t.replace("model: inherit", "model: inherit\npermissionMode: plan"))
+        self.edit("plugins/tenet/agents/tutor.md", lambda t: t.replace("model: inherit", "model: inherit\npermissionMode: plan"))
         self.assertError("'permissionMode' is ignored for plugin agents")
 
     def test_oversize_rules(self):
@@ -104,23 +104,23 @@ class BrokenCopies(RepoCopy):
         self.assertError("budget is 120")
 
     def test_release_without_stop(self):
-        self.edit("plugins/forge/skills/release/SKILL.md", lambda t: t.replace("STOP", "Continue"))
+        self.edit("plugins/tenet/skills/release/SKILL.md", lambda t: t.replace("STOP", "Continue"))
         self.assertError("release/SKILL.md: missing required content")
 
     def test_openspec_reference_removed(self):
-        self.edit("plugins/forge/skills/verify-changes/SKILL.md", lambda t: t.replace("openspec validate", "spec check"))
+        self.edit("plugins/tenet/skills/verify-changes/SKILL.md", lambda t: t.replace("openspec validate", "spec check"))
         self.assertError("must delegate to OpenSpec")
 
     def test_unmarked_standard(self):
-        self.edit("plugins/forge/manual/core/quality.md", lambda t: t.replace("## Standards\n\n", "## Standards\n\n- Write good code.\n", 1))
+        self.edit("plugins/tenet/manual/core/quality.md", lambda t: t.replace("## Standards\n\n", "## Standards\n\n- Write good code.\n", 1))
         self.assertError("standard without MUST/SHOULD/EXPERIMENTAL marker")
 
     def test_provider_term_in_principles(self):
-        self.edit("plugins/forge/manual/core/architecture.md", lambda t: t + "\nUse AWS Lambda.\n")
+        self.edit("plugins/tenet/manual/core/architecture.md", lambda t: t + "\nUse AWS Lambda.\n")
         self.assertError("provider-specific term outside providers/")
 
     def test_catalog_entry_missing_field(self):
-        self.edit("plugins/forge/manual/catalog/technologies.md", lambda t: t.replace("- **Cost:** None.\n", "", 1))
+        self.edit("plugins/tenet/manual/catalog/technologies.md", lambda t: t.replace("- **Cost:** None.\n", "", 1))
         self.assertError("missing field 'Cost'")
 
     def test_unknown_engram_tool(self):
@@ -128,7 +128,7 @@ class BrokenCopies(RepoCopy):
         self.assertError("unknown Engram tool mem_teleport")
 
     def test_plugin_root_claude_md(self):
-        with open(self.path("plugins", "forge", "CLAUDE.md"), "w", encoding="utf-8") as handle:
+        with open(self.path("plugins", "tenet", "CLAUDE.md"), "w", encoding="utf-8") as handle:
             handle.write("# not loaded\n")
         self.assertError("must not contain CLAUDE.md")
 

@@ -1,4 +1,4 @@
-# Persistent memory: Engram (forge)
+# Persistent memory: Engram (tenet)
 
 Applies when the Engram MCP tools (`mem_*`) are available. If they are not, say so once and continue.
 - Start of a meaningful task: call `mem_current_project`, then a targeted `mem_context` or `mem_search` for the task's topic. Load only what the task needs; verify recalled facts against current files before relying on them.

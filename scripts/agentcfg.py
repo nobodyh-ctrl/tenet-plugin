@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Install, uninstall, restore and inspect the forge complementary configuration.
+"""Install, uninstall, restore and inspect the tenet complementary configuration.
 
 What it manages (all tracked in an ownership manifest):
-  * methodology rules  -> <config>/rules/forge/*.md
-  * private profile    -> <config>/rules/forge/profile.md (created once, never overwritten)
-  * --with-permissions -> forge ask/deny rules merged into <config>/settings.json
+  * methodology rules  -> <config>/rules/tenet/*.md
+  * private profile    -> <config>/rules/tenet/profile.md (created once, never overwritten)
+  * --with-permissions -> tenet ask/deny rules merged into <config>/settings.json
   * --with-plugin      -> `claude plugin marketplace add` + `claude plugin install` (user scope)
   * --with-engram      -> `claude mcp add --scope user engram -- <engram> mcp --tools=agent`
 
@@ -19,9 +19,9 @@ import shutil
 import subprocess
 import sys
 
-TOOL = "forge"
-MARKETPLACE = "forge"
-PLUGIN_ID = "forge@forge"
+TOOL = "tenet"
+MARKETPLACE = "tenet"
+PLUGIN_ID = "tenet@tenet"
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RULES_SRC = os.path.join(REPO_ROOT, "global-config", "rules")
 PROFILE_TEMPLATE = os.path.join(REPO_ROOT, "global-config", "templates", "profile.md")
@@ -31,7 +31,7 @@ STATE_REL = TOOL
 MANIFEST_REL = os.path.join(STATE_REL, "manifest.json")
 BACKUPS_REL = os.path.join("backups", TOOL)
 SETTINGS_REL = "settings.json"
-# Second-layer rules; the forge guard hook is the primary control (docs/security.md).
+# Second-layer rules; the tenet guard hook is the primary control (docs/security.md).
 PERMISSIONS = {
     "ask": [
         "Bash(git push *)",
@@ -131,18 +131,18 @@ def which_first(candidates):
 
 def find_claude(explicit=None):
     # "none" disables detection (used by tests to simulate a missing CLI).
-    if "none" in (explicit, os.environ.get("FORGE_CLAUDE_BIN")):
+    if "none" in (explicit, os.environ.get("TENET_CLAUDE_BIN")):
         return None
     home = os.path.expanduser("~")
-    return which_first([explicit, os.environ.get("FORGE_CLAUDE_BIN"), "claude",
+    return which_first([explicit, os.environ.get("TENET_CLAUDE_BIN"), "claude",
                         os.path.join(home, ".local", "bin", "claude.exe"), os.path.join(home, ".local", "bin", "claude")])
 
 
 def find_engram():
-    if os.environ.get("FORGE_ENGRAM_BIN") == "none":
+    if os.environ.get("TENET_ENGRAM_BIN") == "none":
         return None
     home = os.path.expanduser("~")
-    return which_first([os.environ.get("FORGE_ENGRAM_BIN"), "engram",
+    return which_first([os.environ.get("TENET_ENGRAM_BIN"), "engram",
                         os.path.join(home, "AppData", "Local", "engram", "bin", "engram.exe"),
                         os.path.join(home, ".local", "bin", "engram"), os.path.join(home, "go", "bin", "engram")])
 
@@ -460,7 +460,7 @@ def plugin_installed(claude, config):
         items = json.loads(result.stdout or "[]")
     except ValueError:
         return False
-    return any(PLUGIN_ID in json.dumps(item) or (item.get("name") == "forge" and MARKETPLACE in json.dumps(item))
+    return any(PLUGIN_ID in json.dumps(item) or (item.get("name") == "tenet" and MARKETPLACE in json.dumps(item))
                for item in items if isinstance(item, dict))
 
 
@@ -485,7 +485,7 @@ def same_engram(entry, engram):
 
 
 def plugin_version():
-    manifest = os.path.join(REPO_ROOT, "plugins", "forge", ".claude-plugin", "plugin.json")
+    manifest = os.path.join(REPO_ROOT, "plugins", "tenet", ".claude-plugin", "plugin.json")
     try:
         with open(manifest, encoding="utf-8") as handle:
             return json.load(handle).get("version", "unknown")
@@ -531,8 +531,8 @@ def status(config):
 
 
 def build_parser():
-    parser = argparse.ArgumentParser(prog="agentcfg", description="forge complementary installer")
-    parser.add_argument("--version", action="version", version="forge %s" % plugin_version())
+    parser = argparse.ArgumentParser(prog="agentcfg", description="tenet complementary installer")
+    parser.add_argument("--version", action="version", version="tenet %s" % plugin_version())
     sub = parser.add_subparsers(dest="command", required=True)
     for name in ("install", "uninstall", "restore", "status"):
         cmd = sub.add_parser(name)
@@ -542,8 +542,8 @@ def build_parser():
         if name in ("install", "uninstall"):
             cmd.add_argument("--claude-bin", help="path to the claude CLI (default: auto-detect)")
         if name == "install":
-            cmd.add_argument("--with-permissions", action="store_true", help="merge forge ask/deny rules into settings.json")
-            cmd.add_argument("--with-plugin", action="store_true", help="register the marketplace and install the forge plugin")
+            cmd.add_argument("--with-permissions", action="store_true", help="merge tenet ask/deny rules into settings.json")
+            cmd.add_argument("--with-plugin", action="store_true", help="register the marketplace and install the tenet plugin")
             cmd.add_argument("--with-engram", action="store_true", help="register the Engram MCP server at user scope")
         if name == "uninstall":
             cmd.add_argument("--purge", action="store_true", help="also remove the private profile")

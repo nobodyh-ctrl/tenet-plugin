@@ -1,7 +1,7 @@
 # plugin-distribution Specification
 
 ## Purpose
-Distribute the system's skills, agents and hooks as the `forge` Claude Code plugin through a marketplace owned by this repository, installable with native commands.
+Distribute the system's skills, agents and hooks as the `tenet` Claude Code plugin through a marketplace owned by this repository, installable with native commands.
 
 ## Requirements
 

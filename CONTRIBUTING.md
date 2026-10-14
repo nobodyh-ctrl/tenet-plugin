@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for helping improve forge.
+Thanks for helping improve tenet.
 
 ## Ground rules
 

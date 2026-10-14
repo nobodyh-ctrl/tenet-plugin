@@ -2,7 +2,7 @@
 
 ## Supported versions
 
-Only the latest released version of the `forge` plugin and the installer receives fixes.
+Only the latest released version of the `tenet` plugin and the installer receives fixes.
 
 ## Reporting a vulnerability
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Read-only environment diagnostics for forge.
+"""Read-only environment diagnostics for tenet.
 
 Reports tool versions, whether the guard hook can run, and the install state of rules, plugin,
 permissions and the Engram MCP entry. Never writes, and never runs commands that change state.
@@ -73,7 +73,7 @@ def main(argv=None):
                     if not os.path.isfile(os.path.join(config, rel)) or agentcfg.sha256(os.path.join(config, rel)) != digest]
         line("rules", "version %s, %d files%s" % (manifest.get("version"), len(manifest.get("files", {})),
                                                  ", modified/missing: %s" % ", ".join(modified) if modified else ""), not modified)
-        line("permissions", "%d ask, %d deny (forge-owned)" % (len(manifest["permissions"].get("ask", [])), len(manifest["permissions"].get("deny", []))))
+        line("permissions", "%d ask, %d deny (tenet-owned)" % (len(manifest["permissions"].get("ask", [])), len(manifest["permissions"].get("deny", []))))
     else:
         line("rules", "not installed", False)
         problems += 1

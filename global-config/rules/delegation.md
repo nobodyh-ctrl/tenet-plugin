@@ -1,4 +1,4 @@
-# Task sizing, delegation and orchestration (forge)
+# Task sizing, delegation and orchestration (tenet)
 
 - Size by resumability, not by file or command count: a task is small when it is understood, its risk is contained, and it could be resumed from the original request plus `git diff` alone. Small tasks run inline on the lightweight path; larger ones get a plan or an OpenSpec change.
 - The main session is the orchestrator: it owns requirements, conflict resolution between recommendations, integration, final verification, memory writes and the report. Subagent output is evidence to verify, not truth.

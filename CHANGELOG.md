@@ -9,8 +9,8 @@ All notable changes are documented here. The format follows [Keep a Changelog](h
 First public beta. Release notes: [docs/releases/v0.1.0-beta.1.md](docs/releases/v0.1.0-beta.1.md).
 
 ### Added
-- `/forge:version` skill and `agentcfg.py --version`.
-- `forge` plugin and `forge` marketplace.
+- `/tenet:version` skill and `agentcfg.py --version`.
+- `tenet` plugin and `tenet` marketplace.
 - 16 skills.
   - Engineering: `plan-work`, `implement`, `review-code`, `verify-changes`, `documentation`, `devops-iac`.
   - Workflows: `feature`, `bugfix`, `release`, `project-init`.

@@ -1,6 +1,6 @@
 """Tests for scripts/agentcfg.py and the installer wrappers. Everything runs in temp dirs.
 
-forge:synthetic-fixture - paths and settings in this file are fake test data.
+tenet:synthetic-fixture - paths and settings in this file are fake test data.
 """
 import hashlib
 import json
@@ -14,7 +14,7 @@ import unittest
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 AGENTCFG = os.path.join(ROOT, "scripts", "agentcfg.py")
 FAKE_CLAUDE = os.path.join(ROOT, "tests", "fixtures", "fake_claude.py")
-RULES = os.path.join("rules", "forge")
+RULES = os.path.join("rules", "tenet")
 FAKE_FILES = {"calls.log", "fake-claude-state.json"}
 
 
@@ -47,7 +47,7 @@ def tree(root, skip_backups=True):
 
 class InstallerTest(unittest.TestCase):
     def setUp(self):
-        self.tmp = tempfile.mkdtemp(prefix="forge-installer-")
+        self.tmp = tempfile.mkdtemp(prefix="tenet-installer-")
         self.config = os.path.join(self.tmp, "claude-config")
         os.makedirs(self.config)
         self.engram = os.path.join(self.tmp, "engram-bin", "engram.exe")
@@ -60,7 +60,7 @@ class InstallerTest(unittest.TestCase):
 
     def env(self, claude=FAKE_CLAUDE, engram=None):
         env = dict(os.environ)
-        env.update({"CLAUDE_CONFIG_DIR": self.config, "FORGE_CLAUDE_BIN": claude, "FORGE_ENGRAM_BIN": engram or self.engram})
+        env.update({"CLAUDE_CONFIG_DIR": self.config, "TENET_CLAUDE_BIN": claude, "TENET_ENGRAM_BIN": engram or self.engram})
         return env
 
     def run_cfg(self, *args, claude=FAKE_CLAUDE, engram=None, config=None):
@@ -86,7 +86,7 @@ class InstallerTest(unittest.TestCase):
             return [json.loads(line) for line in handle]
 
     def backups(self):
-        folder = os.path.join(self.config, "backups", "forge")
+        folder = os.path.join(self.config, "backups", "tenet")
         return sorted(os.listdir(folder)) if os.path.isdir(folder) else []
 
     def seed_foreign(self):
@@ -98,11 +98,11 @@ class InstallerTest(unittest.TestCase):
 
 class Version(unittest.TestCase):
     def test_version_matches_plugin_manifest(self):
-        with open(os.path.join(ROOT, "plugins", "forge", ".claude-plugin", "plugin.json"), encoding="utf-8") as handle:
+        with open(os.path.join(ROOT, "plugins", "tenet", ".claude-plugin", "plugin.json"), encoding="utf-8") as handle:
             expected = json.load(handle)["version"]
         result = subprocess.run([sys.executable, AGENTCFG, "--version"], capture_output=True, text=True, timeout=60)
         self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertEqual(result.stdout.strip(), "forge %s" % expected)
+        self.assertEqual(result.stdout.strip(), "tenet %s" % expected)
 
 
 class DryRun(InstallerTest):
@@ -111,7 +111,7 @@ class DryRun(InstallerTest):
         before = tree(self.config, skip_backups=False)
         result = self.run_cfg("install", "--dry-run", "--with-permissions", "--with-plugin", "--with-engram")
         self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertIn("create   rules/forge/core.md", result.stdout)
+        self.assertIn("create   rules/tenet/core.md", result.stdout)
         self.assertEqual(tree(self.config, skip_backups=False), before)
         self.assertEqual(self.calls(), [])
 
@@ -169,8 +169,8 @@ class InstallBehavior(InstallerTest):
         claude_json = json.loads(self.read(".claude.json"))
         self.assertEqual(set(claude_json["mcpServers"]), {"github"})
         self.assertEqual(claude_json["numStartups"], 3)
-        self.assertFalse(any(k.startswith("rules/forge/") and not k.endswith("profile.md") for k in after))
-        self.assertIn(["plugin", "uninstall", "forge@forge", "--scope", "user"], self.calls())
+        self.assertFalse(any(k.startswith("rules/tenet/") and not k.endswith("profile.md") for k in after))
+        self.assertIn(["plugin", "uninstall", "tenet@tenet", "--scope", "user"], self.calls())
 
     def test_restore_is_byte_identical(self):
         self.seed_foreign()
@@ -191,7 +191,7 @@ class InstallBehavior(InstallerTest):
         self.write(os.path.join(RULES, "core.md"), "# customized\n")
         self.run_cfg("uninstall")
         latest = self.backups()[-1]
-        saved = os.path.join(self.config, "backups", "forge", latest, "files", RULES, "core.md")
+        saved = os.path.join(self.config, "backups", "tenet", latest, "files", RULES, "core.md")
         with open(saved, encoding="utf-8") as handle:
             self.assertEqual(handle.read(), "# customized\n")
 
@@ -253,10 +253,10 @@ class ExternalTools(InstallerTest):
     def test_missing_claude_prints_manual_commands(self):
         result = self.run_cfg("install", "--with-plugin", "--with-engram", claude="none")
         self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertIn("claude plugin install forge@forge --scope user", result.stdout)
+        self.assertIn("claude plugin install tenet@tenet --scope user", result.stdout)
         self.assertIn("claude mcp add --scope user engram", result.stdout)
         self.assertTrue(os.path.exists(os.path.join(self.config, RULES, "core.md")))
-        manifest = json.loads(self.read("forge/manifest.json"))
+        manifest = json.loads(self.read("tenet/manifest.json"))
         self.assertFalse(manifest["plugin"])
         self.assertFalse(manifest["engram_mcp"])
 
@@ -269,7 +269,7 @@ class ExternalTools(InstallerTest):
     def test_engram_fresh_wiring_exact_command(self):
         self.run_cfg("install", "--with-engram")
         self.assertIn(["mcp", "add", "--scope", "user", "engram", "--", self.engram, "mcp", "--tools=agent"], self.calls())
-        self.assertTrue(json.loads(self.read("forge/manifest.json"))["engram_mcp"])
+        self.assertTrue(json.loads(self.read("tenet/manifest.json"))["engram_mcp"])
         self.run_cfg("uninstall")
         self.assertIn(["mcp", "remove", "engram", "--scope", "user"], self.calls())
 
@@ -279,7 +279,7 @@ class ExternalTools(InstallerTest):
         result = self.run_cfg("install", "--with-engram")
         self.assertIn("CONFLICT", result.stdout)
         self.assertEqual([c for c in self.calls() if c[:1] == ["mcp"]], [])
-        self.assertFalse(json.loads(self.read("forge/manifest.json"))["engram_mcp"])
+        self.assertFalse(json.loads(self.read("tenet/manifest.json"))["engram_mcp"])
         self.run_cfg("uninstall")
         self.assertEqual(self.read(".claude.json"), before)
 

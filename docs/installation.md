@@ -24,7 +24,7 @@ The installer never installs these tools. It reports what is missing and links t
 From GitHub, once the repository is published:
 
 ```bash
-claude plugin marketplace add <owner>/tenet
+claude plugin marketplace add nobodyh-ctrl/tenet
 claude plugin install tenet@tenet
 ```
 

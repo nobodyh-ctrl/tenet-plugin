@@ -88,7 +88,7 @@ There is exactly one owner per surface, and no tool writes another tool's files.
 **Windows (PowerShell):**
 
 ```powershell
-git clone https://github.com/<owner>/tenet
+git clone https://github.com/nobodyh-ctrl/tenet
 cd tenet
 .\installers\install.ps1 -DryRun -WithPlugin -WithEngram   # preview
 .\installers\install.ps1 -WithPlugin -WithEngram
@@ -97,7 +97,7 @@ cd tenet
 **Linux:**
 
 ```bash
-git clone https://github.com/<owner>/tenet
+git clone https://github.com/nobodyh-ctrl/tenet
 cd tenet
 installers/install.sh --dry-run --with-plugin --with-engram   # preview
 installers/install.sh --with-plugin --with-engram
@@ -106,7 +106,7 @@ installers/install.sh --with-plugin --with-engram
 **Plugin only, no clone:**
 
 ```bash
-claude plugin marketplace add <owner>/tenet
+claude plugin marketplace add nobodyh-ctrl/tenet
 claude plugin install tenet@tenet
 ```
 

@@ -6,6 +6,15 @@
   "author": {
     "name": "Facundo Diaz"
   },
+  "homepage": "https://github.com/nobodyh-ctrl/tenet",
+  "repository": "https://github.com/nobodyh-ctrl/tenet",
   "license": "MIT",
-  "keywords": ["engineering", "sdd", "openspec", "workflows", "security", "learning"]
+  "keywords": [
+    "engineering",
+    "sdd",
+    "openspec",
+    "workflows",
+    "security",
+    "learning"
+  ]
 }

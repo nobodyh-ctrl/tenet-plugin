@@ -55,4 +55,4 @@ flowchart TB
 | Guard implementation | Python + policy data, launched by bash | Pure bash (fragile JSON parsing) |
 | Code graph tools | Deferred (catalog) | Installing several MCP graph servers up front |
 
-The full design, with rationale, is in `openspec/changes/establish-forge-system/design.md`, which moves to `openspec/changes/archive/` after archiving.
+The full design, with rationale, is in [the archived change](../openspec/changes/archive/2026-10-14-establish-forge-system/design.md). Current behavior is specified in [openspec/specs/](../openspec/specs/).

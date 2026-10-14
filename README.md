@@ -1,8 +1,38 @@
+<p align="center">
+  <img src="docs/assets/banner.svg" alt="forge: engineering system for Claude Code" width="100%">
+</p>
+
 # forge
 
 **An engineering system for anyone who builds software with Claude Code.** It packages reusable skills, least-privilege agents, a safety guard hook, persistent memory through Engram, and spec-driven development with OpenSpec as the `forge` plugin, with installers for Windows and Linux.
 
 forge shapes *how* Claude Code works in any repository. It does not decide *what* your product is. Each project keeps its own requirements, stack and decisions, and each person keeps a private profile (language, experience, learning goals) that never leaves their machine.
+
+## How it works day to day
+
+**You install once, then you just talk to Claude Code.** You never need to memorize forge commands.
+
+| Part | When it runs | What you do |
+|---|---|---|
+| Methodology rules and your profile | Loaded in every session | Nothing |
+| Guard hook | Checks every command and file access | Nothing. It asks you before risky actions |
+| Skills (feature, bugfix, study-topic...) | Claude picks the one that matches your request | Describe what you want |
+| Agents (explorer, reviewer...) | Claude delegates to them when it is worth it | Nothing |
+| Inner commands (git, tests, `openspec`) | Claude runs them, asking permission as usual | Approve or decline |
+
+```text
+You:    Booking returns a 500 when the class is full. Fix it.
+Claude: (follows the bugfix workflow) reproduces it with a failing test, finds the root
+        cause, applies a minimal fix, runs the suite, and asks before committing.
+
+You:    I want to understand how AWS subnets work.
+Claude: (switches to learning mode) checks what you know, explains in stages,
+        and proposes a hands-on lab.
+```
+
+Slash commands like `/forge:feature` are **optional shortcuts**. Claude usually picks the right workflow from your words, but that choice is a judgment, not a guarantee. Use the slash command when you want a specific process, for example the full spec-driven cycle.
+
+The installer, `scripts/validate.py` and the tests are for installing and maintaining forge, not for daily use.
 
 ## What you get
 

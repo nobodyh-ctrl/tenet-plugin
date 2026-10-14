@@ -25,13 +25,13 @@
 
 ```mermaid
 flowchart TB
-  tenet[tenet plugin<br/>skills, agents, hook, manual] -->|owned by| CC[Claude Code plugin manager]
-  rules[~/.claude/rules/tenet] -->|owned by| inst[tenet installer manifest]
-  perms[settings.json tenet ask/deny] -->|owned by| inst
-  mcp[.claude.json mcpServers.engram] -->|written only by| cli[claude mcp add/remove]
-  db[(~/.engram data)] -->|owned by| engram[Engram]
-  specs[repo/openspec] -->|owned by| openspec[OpenSpec per project]
-  proj[repo AGENTS.md, ADRs] -->|owned by| project[each project]
+  plugin["tenet plugin<br/>skills, agents, hook, manual"] -->|"owned by"| CC["Claude Code plugin manager"]
+  rules["~/.claude/rules/tenet"] -->|"owned by"| inst["tenet installer manifest"]
+  perms["settings.json tenet ask/deny"] -->|"owned by"| inst
+  mcp[".claude.json mcpServers.engram"] -->|"written only by"| cli["claude mcp add/remove"]
+  db[("~/.engram data")] -->|"owned by"| eng["Engram"]
+  specs["repo/openspec"] -->|"owned by"| ospec["OpenSpec per project"]
+  proj["repo AGENTS.md, ADRs"] -->|"owned by"| project["each project"]
 ```
 
 ## Request flow

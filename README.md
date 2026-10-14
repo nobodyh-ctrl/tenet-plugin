@@ -52,26 +52,26 @@ The installer, `scripts/validate.py` and the tests are for installing and mainta
 
 ```mermaid
 flowchart LR
-  subgraph repo[tenet repo]
-    MP[.claude-plugin/marketplace.json]
-    PL[plugins/tenet<br/>skills · agents · hooks · manual]
-    GC[global-config/rules<br/>+ profile template]
-    IN[installers + scripts/agentcfg.py]
+  subgraph repo["tenet repo"]
+    MP[".claude-plugin/marketplace.json"]
+    PL["plugins/tenet<br/>skills · agents · hooks · manual"]
+    GC["global-config/rules<br/>+ profile template"]
+    IN["installers + scripts/agentcfg.py"]
   end
-  subgraph claude[Claude Code on your machine]
-    CACHE[plugin cache<br/>tenet@tenet]
-    RULES[~/.claude/rules/tenet/]
-    SET[settings.json<br/>optional ask/deny]
-    MCP[user MCP: engram]
+  subgraph claude["Your machine"]
+    CACHE["plugin cache<br/>tenet@tenet"]
+    RULES["~/.claude/rules/tenet/"]
+    SET["settings.json<br/>optional ask/deny"]
+    MCP["user MCP: engram"]
   end
-  MP -- claude plugin install --> CACHE
+  MP -->|"claude plugin install"| CACHE
   PL --> CACHE
-  IN -- copies --> RULES
+  IN -->|"copies"| RULES
   GC --> IN
-  IN -- --with-permissions --> SET
-  IN -- claude mcp add --> MCP
-  MCP --- ENG[(Engram ~/.engram)]
-  CACHE -. per project .- OS[openspec/ in your repos]
+  IN -->|"--with-permissions"| SET
+  IN -->|"claude mcp add"| MCP
+  MCP --- ENG[("Engram ~/.engram")]
+  CACHE -.->|"per project"| OS["openspec/ in your repos"]
 ```
 
 There is exactly one owner per surface, and no tool writes another tool's files. See [docs/architecture.md](docs/architecture.md) and [docs/configuration.md](docs/configuration.md).

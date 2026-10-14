@@ -9,7 +9,7 @@
       "name": "forge",
       "source": "./plugins/forge",
       "description": "Engineering and learning workflows, least-privilege agents, a safety guard hook and an on-demand Engineering Manual.",
-      "version": "0.1.0"
+      "version": "0.1.0-beta.1"
     }
   ]
 }

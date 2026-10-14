@@ -1,7 +1,7 @@
 {
   "name": "forge",
   "displayName": "Forge",
-  "version": "0.1.0",
+  "version": "0.1.0-beta.1",
   "description": "Engineering and learning workflows, least-privilege agents, a safety guard hook and an on-demand Engineering Manual.",
   "author": {
     "name": "Facundo Diaz"

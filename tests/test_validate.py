@@ -63,6 +63,18 @@ class BrokenCopies(RepoCopy):
         self.edit("plugins/forge/skills/plan-work/SKILL.md", lambda t: t.replace("allowed-tools: Read(${CLAUDE_PLUGIN_ROOT}/**)", "allowed-tools: Bash, Read"))
         self.assertError("allowed-tools may only be")
 
+    def test_version_skill_must_not_auto_invoke(self):
+        self.edit("plugins/forge/skills/version/SKILL.md", lambda t: t.replace("disable-model-invocation: true\n", ""))
+        self.assertError("version skill must set disable-model-invocation: true")
+
+    def test_release_notes_required_for_current_version(self):
+        os.remove(self.path("docs", "releases", "v0.1.0-beta.1.md"))
+        self.assertError("missing release notes for version 0.1.0-beta.1")
+
+    def test_changelog_section_required(self):
+        self.edit("CHANGELOG.md", lambda t: t.replace("## [0.1.0-beta.1]", "## [0.0.9]"))
+        self.assertError("missing '## [0.1.0-beta.1]' section")
+
     def test_marketplace_name_mismatch(self):
         def rename(text):
             data = json.loads(text)

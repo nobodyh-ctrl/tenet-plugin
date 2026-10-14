@@ -4,7 +4,12 @@ All notable changes are documented here. The format follows [Keep a Changelog](h
 
 ## [Unreleased]
 
+## [0.1.0-beta.1] - 2026-10-14
+
+First public beta. Release notes: [docs/releases/v0.1.0-beta.1.md](docs/releases/v0.1.0-beta.1.md).
+
 ### Added
+- `/forge:version` skill and `agentcfg.py --version`.
 - `forge` plugin and `forge` marketplace.
 - 16 skills.
   - Engineering: `plan-work`, `implement`, `review-code`, `verify-changes`, `documentation`, `devops-iac`.

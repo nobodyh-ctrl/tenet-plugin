@@ -3,17 +3,17 @@
   <desc id="desc">Banner: the forge logo, the tagline "Engineering system for Claude Code", the pillars guardrails, spec-driven development and memory, and a terminal showing a bug being fixed through the forge bugfix workflow.</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#05121a"/>
-      <stop offset="0.55" stop-color="#071a20"/>
-      <stop offset="1" stop-color="#03100f"/>
+      <stop offset="0" stop-color="#120a06"/>
+      <stop offset="0.55" stop-color="#1a0e08"/>
+      <stop offset="1" stop-color="#0d0704"/>
     </linearGradient>
     <radialGradient id="glow" cx="0.78" cy="0.22" r="0.55">
-      <stop offset="0" stop-color="#0d3b33" stop-opacity="0.9"/>
-      <stop offset="1" stop-color="#0d3b33" stop-opacity="0"/>
+      <stop offset="0" stop-color="#4a220c" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#4a220c" stop-opacity="0"/>
     </radialGradient>
     <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#16d39a" stop-opacity="0"/>
-      <stop offset="1" stop-color="#16d39a" stop-opacity="0.35"/>
+      <stop offset="0" stop-color="#ff7a1a" stop-opacity="0"/>
+      <stop offset="1" stop-color="#ff7a1a" stop-opacity="0.35"/>
     </linearGradient>
     <filter id="soft" x="-50%" y="-50%" width="200%" height="200%">
       <feGaussianBlur stdDeviation="6"/>
@@ -28,7 +28,7 @@
   <rect width="1600" height="800" fill="url(#glow)"/>
 
   <!-- network arcs (top right) -->
-  <g fill="none" stroke="#16d39a" stroke-opacity="0.35" stroke-width="1.6">
+  <g fill="none" stroke="#ff7a1a" stroke-opacity="0.35" stroke-width="1.6">
     <path d="M1040 140 Q1200 60 1340 150"/>
     <path d="M1340 150 Q1420 70 1520 110"/>
     <path d="M1040 140 Q1060 210 1110 230"/>
@@ -36,7 +36,7 @@
     <path d="M1260 175 Q1350 190 1400 205"/>
     <path d="M1520 110 Q1560 180 1580 250"/>
   </g>
-  <g fill="#16d39a">
+  <g fill="#ff7a1a">
     <circle cx="1040" cy="140" r="6"/><circle cx="1040" cy="140" r="14" opacity="0.25" filter="url(#soft)"/>
     <circle cx="1340" cy="150" r="6"/><circle cx="1340" cy="150" r="14" opacity="0.25" filter="url(#soft)"/>
     <circle cx="1520" cy="110" r="6"/><circle cx="1520" cy="110" r="14" opacity="0.25" filter="url(#soft)"/>
@@ -44,7 +44,7 @@
   </g>
 
   <!-- wave grid (bottom) -->
-  <g fill="none" stroke="#16d39a" stroke-width="1" stroke-opacity="0.18">
+  <g fill="none" stroke="#ff7a1a" stroke-width="1" stroke-opacity="0.18">
     <path d="M0 610 C200 560 400 660 600 620 S1000 560 1200 640 S1500 690 1600 650"/>
     <path d="M0 640 C200 590 400 690 600 650 S1000 590 1200 670 S1500 720 1600 680"/>
     <path d="M0 670 C200 620 400 720 600 680 S1000 620 1200 700 S1500 750 1600 710"/>
@@ -53,14 +53,14 @@
     <path d="M0 760 C200 710 400 810 600 770 S1000 710 1200 790 S1500 840 1600 800"/>
     <path d="M0 790 C200 740 400 840 600 800 S1000 740 1200 820 S1500 870 1600 830"/>
   </g>
-  <g stroke="#16d39a" stroke-width="1" stroke-opacity="0.12">
+  <g stroke="#ff7a1a" stroke-width="1" stroke-opacity="0.12">
     <path d="M80 600 L40 800"/><path d="M200 590 L170 800"/><path d="M320 600 L300 800"/><path d="M440 610 L430 800"/>
     <path d="M560 615 L560 800"/><path d="M680 605 L690 800"/><path d="M800 590 L820 800"/><path d="M920 580 L950 800"/>
     <path d="M1040 590 L1080 800"/><path d="M1160 610 L1210 800"/><path d="M1280 630 L1340 800"/><path d="M1400 640 L1470 800"/>
   </g>
 
   <!-- prompt motto -->
-  <g font-family="'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'DejaVu Sans Mono',monospace" font-size="26" fill="#2c6b5e">
+  <g font-family="'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'DejaVu Sans Mono',monospace" font-size="26" fill="#7a4a2a">
     <text x="60" y="80">&gt; plan</text>
     <text x="60" y="114">&gt; build</text>
     <text x="60" y="148">&gt; verify</text>
@@ -68,55 +68,55 @@
 
   <!-- logo mark: terminal with spark -->
   <g transform="translate(78 236)">
-    <rect x="0" y="0" width="200" height="170" rx="26" fill="none" stroke="#16d39a" stroke-width="13"/>
-    <path d="M44 56 L86 92 L44 128" fill="none" stroke="#16d39a" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M104 128 L158 128" stroke="#16d39a" stroke-width="15" stroke-linecap="round"/>
-    <path d="M156 34 l6 14 l14 6 l-14 6 l-6 14 l-6 -14 l-14 -6 l14 -6 z" fill="#16d39a"/>
+    <rect x="0" y="0" width="200" height="170" rx="26" fill="none" stroke="#ff7a1a" stroke-width="13"/>
+    <path d="M44 56 L86 92 L44 128" fill="none" stroke="#ff7a1a" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M104 128 L158 128" stroke="#ff7a1a" stroke-width="15" stroke-linecap="round"/>
+    <path d="M156 34 l6 14 l14 6 l-14 6 l-6 14 l-6 -14 l-14 -6 l14 -6 z" fill="#ff7a1a"/>
   </g>
 
   <!-- wordmark -->
   <g font-family="'Montserrat','Poppins','Segoe UI','Helvetica Neue',Arial,sans-serif" font-weight="800" font-size="150" letter-spacing="4">
-    <text x="320" y="390"><tspan fill="#f2f6f5">FOR</tspan><tspan fill="#16d39a">GE</tspan></text>
+    <text x="320" y="390"><tspan fill="#fbf6f2">FOR</tspan><tspan fill="#ff7a1a">GE</tspan></text>
   </g>
-  <text x="326" y="452" font-family="'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'DejaVu Sans Mono',monospace" font-size="30" fill="#cfe3de" letter-spacing="0.5">Engineering system for Claude Code</text>
+  <text x="326" y="452" font-family="'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'DejaVu Sans Mono',monospace" font-size="30" fill="#f3e3d6" letter-spacing="0.5">Engineering system for Claude Code</text>
 
   <!-- pillars -->
-  <g font-family="'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'DejaVu Sans Mono',monospace" font-size="22" fill="#cfe3de">
+  <g font-family="'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'DejaVu Sans Mono',monospace" font-size="22" fill="#f3e3d6">
     <g transform="translate(328 504)">
-      <path d="M14 0 L28 6 L28 18 C28 28 21 34 14 37 C7 34 0 28 0 18 L0 6 Z" fill="none" stroke="#16d39a" stroke-width="3" stroke-linejoin="round"/>
-      <path d="M8 18 L13 23 L21 13" fill="none" stroke="#16d39a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M14 0 L28 6 L28 18 C28 28 21 34 14 37 C7 34 0 28 0 18 L0 6 Z" fill="none" stroke="#ff7a1a" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M8 18 L13 23 L21 13" fill="none" stroke="#ff7a1a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
       <text x="44" y="27">Guardrails</text>
     </g>
-    <path d="M526 506 L526 542" stroke="#2c6b5e" stroke-width="2"/>
+    <path d="M526 506 L526 542" stroke="#7a4a2a" stroke-width="2"/>
     <g transform="translate(552 504)">
-      <path d="M10 6 L0 18 L10 30 M28 6 L38 18 L28 30 M22 2 L16 34" fill="none" stroke="#16d39a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M10 6 L0 18 L10 30 M28 6 L38 18 L28 30 M22 2 L16 34" fill="none" stroke="#ff7a1a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
       <text x="54" y="27">SDD + OpenSpec</text>
     </g>
-    <path d="M808 506 L808 542" stroke="#2c6b5e" stroke-width="2"/>
+    <path d="M808 506 L808 542" stroke="#7a4a2a" stroke-width="2"/>
     <g transform="translate(834 504)">
-      <ellipse cx="17" cy="8" rx="15" ry="6" fill="none" stroke="#16d39a" stroke-width="3"/>
-      <path d="M2 8 L2 28 C2 32 9 35 17 35 C25 35 32 32 32 28 L32 8 M2 18 C2 22 9 25 17 25 C25 25 32 22 32 18" fill="none" stroke="#16d39a" stroke-width="3"/>
+      <ellipse cx="17" cy="8" rx="15" ry="6" fill="none" stroke="#ff7a1a" stroke-width="3"/>
+      <path d="M2 8 L2 28 C2 32 9 35 17 35 C25 35 32 32 32 28 L32 8 M2 18 C2 22 9 25 17 25 C25 25 32 22 32 18" fill="none" stroke="#ff7a1a" stroke-width="3"/>
       <text x="48" y="27">Memory</text>
     </g>
   </g>
 
   <!-- terminal window -->
   <g transform="translate(1048 268)" filter="url(#shadow)">
-    <rect x="0" y="0" width="520" height="400" rx="16" fill="#08161b" stroke="#16d39a" stroke-opacity="0.35" stroke-width="2"/>
-    <path d="M0 16 a16 16 0 0 1 16 -16 h488 a16 16 0 0 1 16 16 v34 h-520 z" fill="#0b1d22"/>
+    <rect x="0" y="0" width="520" height="400" rx="16" fill="#170d08" stroke="#ff7a1a" stroke-opacity="0.35" stroke-width="2"/>
+    <path d="M0 16 a16 16 0 0 1 16 -16 h488 a16 16 0 0 1 16 16 v34 h-520 z" fill="#22140c"/>
     <circle cx="28" cy="25" r="8" fill="#ff5f57"/>
     <circle cx="54" cy="25" r="8" fill="#febc2e"/>
     <circle cx="80" cy="25" r="8" fill="#28c840"/>
     <g font-family="'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'DejaVu Sans Mono',monospace" font-size="18">
-      <text x="26" y="88"><tspan fill="#16d39a">&gt;</tspan><tspan fill="#e6efed"> fix: booking returns 500</tspan></text>
-      <text x="44" y="112" fill="#e6efed">when the class is full</text>
-      <text x="26" y="150" fill="#16d39a">● forge:bugfix</text>
-      <text x="26" y="188" fill="#8fb1a9">reproduce</text><text x="160" y="188" fill="#e6efed">failing test</text><text x="470" y="188" fill="#16d39a">✔</text>
-      <text x="26" y="218" fill="#8fb1a9">root cause</text><text x="160" y="218" fill="#e6efed">no capacity check</text><text x="470" y="218" fill="#16d39a">✔</text>
-      <text x="26" y="248" fill="#8fb1a9">fix</text><text x="160" y="248" fill="#e6efed">app/main.py:11</text><text x="470" y="248" fill="#16d39a">✔</text>
-      <text x="26" y="278" fill="#8fb1a9">verify</text><text x="160" y="278" fill="#e6efed">24 tests passed</text><text x="470" y="278" fill="#16d39a">✔</text>
-      <text x="26" y="308" fill="#8fb1a9">guard</text><text x="160" y="308" fill="#e6efed">git push → ask</text><text x="470" y="308" fill="#febc2e">!</text>
-      <text x="26" y="360" fill="#8fb1a9">Done. Waiting for your approval.</text>
+      <text x="26" y="88"><tspan fill="#ff7a1a">&gt;</tspan><tspan fill="#f6ece4"> fix: booking returns 500</tspan></text>
+      <text x="44" y="112" fill="#f6ece4">when the class is full</text>
+      <text x="26" y="150" fill="#ff7a1a">● forge:bugfix</text>
+      <text x="26" y="188" fill="#c09a80">reproduce</text><text x="160" y="188" fill="#f6ece4">failing test</text><text x="470" y="188" fill="#ff7a1a">✔</text>
+      <text x="26" y="218" fill="#c09a80">root cause</text><text x="160" y="218" fill="#f6ece4">no capacity check</text><text x="470" y="218" fill="#ff7a1a">✔</text>
+      <text x="26" y="248" fill="#c09a80">fix</text><text x="160" y="248" fill="#f6ece4">app/main.py:11</text><text x="470" y="248" fill="#ff7a1a">✔</text>
+      <text x="26" y="278" fill="#c09a80">verify</text><text x="160" y="278" fill="#f6ece4">24 tests passed</text><text x="470" y="278" fill="#ff7a1a">✔</text>
+      <text x="26" y="308" fill="#c09a80">guard</text><text x="160" y="308" fill="#f6ece4">git push → ask</text><text x="470" y="308" fill="#febc2e">!</text>
+      <text x="26" y="360" fill="#c09a80">Done. Waiting for your approval.</text>
     </g>
   </g>
 

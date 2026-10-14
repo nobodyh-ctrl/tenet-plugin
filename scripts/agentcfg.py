@@ -532,6 +532,7 @@ def status(config):
 
 def build_parser():
     parser = argparse.ArgumentParser(prog="agentcfg", description="forge complementary installer")
+    parser.add_argument("--version", action="version", version="forge %s" % plugin_version())
     sub = parser.add_subparsers(dest="command", required=True)
     for name in ("install", "uninstall", "restore", "status"):
         cmd = sub.add_parser(name)

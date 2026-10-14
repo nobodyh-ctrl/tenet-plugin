@@ -4,6 +4,8 @@
 
 # forge
 
+> **Beta: `0.1.0-beta.1`.** Ready to try; details may change before 1.0. See the [release notes](docs/releases/v0.1.0-beta.1.md). Check your installed version with `/forge:version`.
+
 **An engineering system for anyone who builds software with Claude Code.** It packages reusable skills, least-privilege agents, a safety guard hook, persistent memory through Engram, and spec-driven development with OpenSpec as the `forge` plugin, with installers for Windows and Linux.
 
 forge shapes *how* Claude Code works in any repository. It does not decide *what* your product is. Each project keeps its own requirements, stack and decisions, and each person keeps a private profile (language, experience, learning goals) that never leaves their machine.

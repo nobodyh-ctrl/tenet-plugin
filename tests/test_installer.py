@@ -96,6 +96,15 @@ class InstallerTest(unittest.TestCase):
         self.write(".claude.json", json.dumps({"mcpServers": {"github": {"command": "gh-mcp", "args": []}}, "numStartups": 3}))
 
 
+class Version(unittest.TestCase):
+    def test_version_matches_plugin_manifest(self):
+        with open(os.path.join(ROOT, "plugins", "forge", ".claude-plugin", "plugin.json"), encoding="utf-8") as handle:
+            expected = json.load(handle)["version"]
+        result = subprocess.run([sys.executable, AGENTCFG, "--version"], capture_output=True, text=True, timeout=60)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(result.stdout.strip(), "forge %s" % expected)
+
+
 class DryRun(InstallerTest):
     def test_dry_run_writes_nothing_and_runs_no_cli(self):
         self.seed_foreign()

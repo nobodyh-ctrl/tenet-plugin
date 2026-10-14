@@ -17,6 +17,7 @@ SKILLS = [
     "plan-work", "implement", "review-code", "verify-changes", "documentation", "devops-iac",
     "feature", "bugfix", "release", "project-init",
     "learn-concept", "hands-on-lab", "research-technology", "aws-security", "networking-lab", "study-topic",
+    "version",
 ]
 OPENSPEC_SKILLS = ["plan-work", "implement", "verify-changes", "review-code", "documentation"]
 AGENT_TOOLS = {
@@ -159,8 +160,18 @@ def check_manifests(report):
         if entry.get("version") and entry.get("version") != manifest.get("version"):
             report.error(manifest_path, "version differs from marketplace entry")
         check_plugin_manifest(report, manifest_path, manifest)
+        check_release_notes(report, manifest.get("version", ""))
         if os.path.exists(os.path.join(plugin_dir, "CLAUDE.md")):
             report.error(plugin_dir, "plugin root must not contain CLAUDE.md (it is not loaded)")
+
+
+def check_release_notes(report, version):
+    notes = os.path.join(report.root, "docs", "releases", "v%s.md" % version)
+    if not os.path.isfile(notes):
+        report.error(notes, "missing release notes for version %s" % version)
+    changelog = os.path.join(report.root, "CHANGELOG.md")
+    if not os.path.isfile(changelog) or "## [%s]" % version not in read(changelog):
+        report.error(changelog, "missing '## [%s]' section" % version)
 
 
 def check_plugin_manifest(report, path, manifest):
@@ -194,6 +205,7 @@ SKILL_CONTENT_CHECKS = {
     "hands-on-lab": [r"[Aa]uthorized scope", r"[Cc]leanup", r"cost"],
     "aws-security": [r"[Rr]ead-only", r"authorized"],
     "networking-lab": [r"[Cc]leanup"],
+    "version": [r"\$\{CLAUDE_PLUGIN_ROOT\}/\.claude-plugin/plugin\.json", r"beta", r"stable"],
 }
 LAB_TEMPLATE_SECTIONS = ["Objective", "Authorized scope", "Prerequisites", "Steps", "Validation", "Cleanup", "Estimated cost"]
 
@@ -230,6 +242,8 @@ def check_skills(report, plugin_root):
             report.error(path, "allowed-tools may only be %s" % PLUGIN_READ)
         if reads_plugin and allowed != PLUGIN_READ:
             report.error(path, "reads plugin files but does not pre-approve %s" % PLUGIN_READ)
+        if name == "version" and meta.get("disable-model-invocation") != "true":
+            report.error(path, "version skill must set disable-model-invocation: true")
         if name in OPENSPEC_SKILLS and not re.search(r"/opsx:|openspec validate", body):
             report.error(path, "must delegate to OpenSpec (/opsx: or openspec validate)")
         for pattern in SKILL_CONTENT_CHECKS.get(name, []):

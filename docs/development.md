@@ -5,7 +5,7 @@ This repository is developed with Spec-Driven Development using OpenSpec.
 ## Setup
 
 ```bash
-git clone https://github.com/nobodyh-ctrl/tenet && cd tenet
+git clone https://github.com/nobodyh-ctrl/tenet-plugin && cd tenet-plugin
 python --version          # 3.9+
 openspec --version        # 1.14+ (optional, for changing behavior)
 ```

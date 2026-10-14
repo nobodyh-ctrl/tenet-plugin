@@ -285,7 +285,7 @@ class ExternalTools(InstallerTest):
 
 
 def find_bash():
-    """Git Bash on Windows (what Claude Code uses for hooks); System32\bash.exe is the WSL launcher."""
+    """Git Bash on Windows (what Claude Code uses for hooks); System32/bash.exe is the WSL launcher."""
     if os.name == "nt":
         git = shutil.which("git")
         candidates = []

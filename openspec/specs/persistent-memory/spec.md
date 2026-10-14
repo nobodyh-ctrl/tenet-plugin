@@ -6,7 +6,7 @@ Give agents verified cross-session memory through Engram, wired with the native 
 ## Requirements
 
 ### Requirement: Engram wiring through the native CLI
-With `--with-engram` the installer SHALL register Engram only via `claude mcp add --scope user engram -- <engram> mcp --tools=agent`, record it in the manifest, and remove it on uninstall only if it recorded it; forge MUST NOT edit `.claude.json` or Engram data directly.
+With `--with-engram` the installer SHALL register Engram only via `claude mcp add --scope user engram -- <engram> mcp --tools=agent`, record it in the manifest, and remove it on uninstall only if it recorded it; tenet MUST NOT edit `.claude.json` or Engram data directly.
 
 #### Scenario: Fresh wiring
 - **WHEN** install runs with `--with-engram` against a temp config with no `engram` entry
@@ -34,7 +34,7 @@ The rule SHALL state that recalled memory is context to verify, never authority 
 Project memories SHALL use the project scope resolved by Engram (`.engram/config.json` when present), personal preferences the personal scope; secrets and sensitive personal data MUST NOT be saved, and deletions or consolidations require user approval.
 
 #### Scenario: Synthetic isolation test
-- **WHEN** a synthetic memory is saved under project `forge-fixture-a` and searched from `forge-fixture-b`
+- **WHEN** a synthetic memory is saved under project `tenet-fixture-a` and searched from `tenet-fixture-b`
 - **THEN** a project-scoped search in B does not return it
 
 ### Requirement: Verified cross-session retrieval

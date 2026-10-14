@@ -35,10 +35,10 @@ The hook SHALL return `ask` when `Read`, `Edit` or `Write` targets secret files 
 - **THEN** it emits no decision
 
 ### Requirement: Read-only Bash for reviewers
-When the hook input's `agent_type` is `reviewer` or `security-reviewer` (with or without the `forge:` prefix), the hook SHALL deny any command outside a read-only allowlist or containing write redirections.
+When the hook input's `agent_type` is `reviewer` or `security-reviewer` (with or without the `tenet:` prefix), the hook SHALL deny any command outside a read-only allowlist or containing write redirections.
 
 #### Scenario: Reviewer writes
-- **WHEN** the hook receives `git commit -m x` with `agent_type` `forge:reviewer`
+- **WHEN** the hook receives `git commit -m x` with `agent_type` `tenet:reviewer`
 - **THEN** it returns `deny`
 
 ### Requirement: Safe failure and secret-free messages
@@ -48,9 +48,9 @@ The hook SHALL exit 0 without a decision on invalid input or missing Python (fai
 - **WHEN** the hook receives non-JSON input
 - **THEN** it exits 0 with no decision and a short stderr warning
 
-### Requirement: Optional forge-owned permission rules
+### Requirement: Optional tenet-owned permission rules
 The optional `--with-permissions` install SHALL add only `ask` and `deny` rules absent from `settings.json`, tracked in the ownership manifest, and MUST NOT add broad `allow` rules or change `defaultMode`.
 
 #### Scenario: Non-destructive merge
 - **WHEN** `settings.json` has foreign rules and keys and `--with-permissions` runs twice
-- **THEN** foreign content is unchanged and forge rules appear exactly once
+- **THEN** foreign content is unchanged and tenet rules appear exactly once

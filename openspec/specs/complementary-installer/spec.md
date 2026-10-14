@@ -31,7 +31,7 @@ The installer SHALL target `--config-dir`, else `CLAUDE_CONFIG_DIR`, else `~/.cl
 - **THEN** the installer exits with an error and writes nothing
 
 ### Requirement: Idempotent install with ownership manifest
-The installer SHALL copy rules to `<config>/rules/forge/`, record owned files (with SHA-256) and permission rules in a manifest, and produce the same state on repeated runs.
+The installer SHALL copy rules to `<config>/rules/tenet/`, record owned files (with SHA-256) and permission rules in a manifest, and produce the same state on repeated runs.
 
 #### Scenario: Reinstall
 - **WHEN** install runs twice
@@ -52,7 +52,7 @@ The installer SHALL create the private profile from the template only if absent,
 - **THEN** the profile is unchanged
 
 ### Requirement: Backup and restore
-Before modifying or deleting an existing file the installer SHALL back it up under `<config>/backups/forge/<timestamp>/` and SHALL support `--restore <timestamp>`.
+Before modifying or deleting an existing file the installer SHALL back it up under `<config>/backups/tenet/<timestamp>/` and SHALL support `--restore <timestamp>`.
 
 #### Scenario: Byte-identical restore
 - **WHEN** install runs with `--with-permissions` and the created backup is restored
@@ -63,7 +63,7 @@ Uninstall SHALL remove only manifest-listed files and rules and preserve everyth
 
 #### Scenario: Foreign config intact
 - **WHEN** foreign rules, skills, settings and MCP entries exist and uninstall runs
-- **THEN** all foreign content is identical and forge components are gone
+- **THEN** all foreign content is identical and tenet components are gone
 
 ### Requirement: Native plugin registration
 With `--with-plugin` the installer SHALL run `claude plugin marketplace add` and `claude plugin install` at user scope, and uninstall SHALL run the matching uninstall and remove commands; it MUST NOT download remote code or ask for credentials.

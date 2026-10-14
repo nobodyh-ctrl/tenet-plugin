@@ -284,11 +284,27 @@ class ExternalTools(InstallerTest):
         self.assertEqual(self.read(".claude.json"), before)
 
 
-@unittest.skipUnless(shutil.which("bash"), "bash not available")
+def find_bash():
+    """Git Bash on Windows (what Claude Code uses for hooks); System32\bash.exe is the WSL launcher."""
+    if os.name == "nt":
+        git = shutil.which("git")
+        candidates = []
+        if git:
+            root = os.path.dirname(os.path.dirname(git))
+            candidates += [os.path.join(root, "bin", "bash.exe"), os.path.join(root, "usr", "bin", "bash.exe")]
+        candidates.append(os.path.join(os.environ.get("ProgramFiles", r"C:\Program Files"), "Git", "bin", "bash.exe"))
+        return next((c for c in candidates if os.path.isfile(c)), None)
+    return shutil.which("bash")
+
+
+BASH = find_bash()
+
+
+@unittest.skipUnless(BASH, "bash not available")
 class BashWrapper(InstallerTest):
     def test_bash_wrapper_dry_run(self):
         script = os.path.join(ROOT, "installers", "install.sh")
-        result = subprocess.run(["bash", script, "--dry-run", "--config-dir", self.config], capture_output=True, text=True,
+        result = subprocess.run([BASH, script, "--dry-run", "--config-dir", self.config], capture_output=True, text=True,
                                 env=self.env(), timeout=120)
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn("install plan (dry run)", result.stdout)
@@ -296,7 +312,7 @@ class BashWrapper(InstallerTest):
 
     def test_bash_wrapper_rejects_unknown_option(self):
         script = os.path.join(ROOT, "installers", "install.sh")
-        result = subprocess.run(["bash", script, "--bogus"], capture_output=True, text=True, env=self.env(), timeout=60)
+        result = subprocess.run([BASH, script, "--bogus"], capture_output=True, text=True, env=self.env(), timeout=60)
         self.assertEqual(result.returncode, 2)
 
 

@@ -15,9 +15,9 @@
 
 ## 3. Release tag and migration
 
-- [ ] 3.1 Commit, delete the unpushed local tag `forge--v0.1.0-beta.1`, and run `claude plugin tag plugins/tenet`. Verify that `git tag -l` shows only `tenet--v0.1.0-beta.1`
-- [ ] 3.2 Build the release assets locally from the tag. Verify the checksums, and load the plugin zip with `claude --plugin-dir` in a headless `/tenet:version` run
-- [ ] 3.3 With explicit approval, migrate the local install from forge to tenet, keeping the profile. Verify with `doctor.py`, `claude plugin list` and `claude mcp get engram`
+- [x] 3.1 Commit, delete the unpushed local tag `forge--v0.1.0-beta.1`, and run `claude plugin tag plugins/tenet`. Verify that `git tag -l` shows only `tenet--v0.1.0-beta.1`
+- [x] 3.2 Build the release assets locally from the tag. Verify the checksums, and load the plugin zip with `claude --plugin-dir` in a headless `/tenet:version` run
+- [x] 3.3 With explicit approval, migrate the local install from forge to tenet, keeping the profile. Verify with `doctor.py`, `claude plugin list` and `claude mcp get engram`
 
 ## Workflow follow-up
 

@@ -1,0 +1,11 @@
+{
+  "name": "forge",
+  "displayName": "Forge",
+  "version": "0.1.0",
+  "description": "Engineering and learning workflows, least-privilege agents, a safety guard hook and an on-demand Engineering Manual.",
+  "author": {
+    "name": "Facundo Diaz"
+  },
+  "license": "MIT",
+  "keywords": ["engineering", "sdd", "openspec", "workflows", "security", "learning"]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "facundo-agent-config",
+  "description": "Engineering system for Claude Code: methodology, workflows, Engineering Manual and guardrails.",
+  "owner": {
+    "name": "Facundo Diaz"
+  },
+  "plugins": [
+    {
+      "name": "forge",
+      "source": "./plugins/forge",
+      "description": "Engineering and learning workflows, least-privilege agents, a safety guard hook and an on-demand Engineering Manual.",
+      "version": "0.1.0"
+    }
+  ]
+}

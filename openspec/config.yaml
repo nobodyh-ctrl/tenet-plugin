@@ -1,0 +1,37 @@
+schema: spec-driven
+
+context: |
+  Project: facundo-agent-config. Reusable engineering system for Claude Code, distributed as the
+  `forge` plugin (own marketplace) plus a complementary installer for what plugins cannot ship
+  (user-level rules, private profile, optional permissions).
+  Ownership model: OpenSpec owns specs and change lifecycle; Engram owns persistent memory (its
+  MCP entry is added/removed only via the `claude mcp` CLI); this repo owns methodology,
+  Engineering Manual, templates, workflows and custom guardrails. Gentle AI is not used.
+  Never write files another system owns.
+  Write all artifacts in English; replies to the user are in Spanish.
+  Targets: Windows native (PowerShell 5.1+, Git Bash) first, Linux (Bash) where practical.
+  Runtime deps allowed: Python 3.9+ (hooks, installer core, validators) and Claude Code.
+  Technical controls (hooks, permissions) over prose; prose is never presented as a guarantee.
+  Tests never touch the real user configuration: use temp dirs and CLAUDE_CONFIG_DIR.
+  No versioned file may contain local user paths, secrets, or names/details of the user's private
+  products (they are out of scope; the scanner reads their names from the git-ignored local/ dir).
+
+rules:
+  proposal:
+    - Keep it concise and state what is out of scope.
+  specs:
+    - Every requirement must be verifiable by an automated test or a concrete command.
+  design:
+    - Every decision states its rationale and at least one rejected alternative.
+  tasks:
+    - Every implementation task names its verification (test or command).
+    - Tasks touching real global config or installing tools require explicit user approval.
+
+operations:
+  apply:
+    guidance:
+      - Mark a task done only with evidence (test or command output).
+      - If scope changes, stop and update the artifacts before continuing.
+  archive:
+    guidance:
+      - Never archive without explicit user approval or with pending tasks.

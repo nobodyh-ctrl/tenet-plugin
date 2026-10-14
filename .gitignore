@@ -1,0 +1,15 @@
+# Private, never versioned (personal guides, scratch notes)
+local/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Local Claude Code settings
+.claude/settings.local.json

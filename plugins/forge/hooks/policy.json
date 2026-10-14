@@ -1,0 +1,279 @@
+{
+  "version": 1,
+  "command_rules": [
+    {
+      "id": "deny-fork-bomb",
+      "decision": "deny",
+      "pattern": ":\\(\\)\\s*\\{\\s*:\\s*\\|\\s*:\\s*&\\s*\\}\\s*;\\s*:",
+      "reason": "Fork bomb."
+    },
+    {
+      "id": "deny-disk-format",
+      "decision": "deny",
+      "pattern": "(\\bmkfs(\\.\\w+)?\\b|\\bformat(\\.com)?\\s+[a-z]:|\\bFormat-Volume\\b|\\bClear-Disk\\b|\\bdiskpart\\b)",
+      "reason": "Disk formatting or partition wiping."
+    },
+    {
+      "id": "deny-raw-device-write",
+      "decision": "deny",
+      "pattern": "(\\bdd\\b[^|;&]*\\bof=/dev/(sd|hd|nvme|disk|mmcblk|xvd)|>\\s*/dev/(sd|hd|nvme|disk|mmcblk|xvd))",
+      "reason": "Raw write to a block device."
+    },
+    {
+      "id": "deny-force-push-main",
+      "decision": "deny",
+      "pattern": "\\bgit\\b[^|;&]*\\bpush\\b(?=[^|;&]*(\\s--force(-with-lease)?\\b|\\s-f\\b|\\s\\+))(?=[^|;&]*\\b(main|master)\\b)",
+      "reason": "Force push to main/master rewrites shared history."
+    },
+    {
+      "id": "deny-remove-item-root",
+      "decision": "deny",
+      "pattern": "\\b(Remove-Item|rm|del|rd|rmdir|ri)\\b[^|;&]*-Recurse[^|;&]*?\\s(['\"]?)([a-z]:[\\\\/]?\\*?|~[\\\\/]?\\*?|\\$env:(USERPROFILE|HOMEDRIVE|SystemRoot)[\\\\/]?\\*?|\\$HOME[\\\\/]?\\*?)\\2(\\s|$)",
+      "reason": "Recursive deletion of a drive root or the home directory."
+    },
+    {
+      "id": "ask-git-push",
+      "decision": "ask",
+      "pattern": "\\bgit\\b[^|;&]*\\bpush\\b",
+      "reason": "Publishing commits to a remote needs explicit approval."
+    },
+    {
+      "id": "ask-release",
+      "decision": "ask",
+      "pattern": "(\\bgit\\s+tag\\s+(-[asfm]\\b|[^-\\s])|\\bgh\\s+(release\\s+(create|delete|edit)|repo\\s+(create|delete)|pr\\s+merge)\\b|\\bnpm\\s+publish\\b|\\bclaude\\s+plugin\\s+tag\\b)",
+      "reason": "Creating tags, releases, repositories or publishing packages needs explicit approval."
+    },
+    {
+      "id": "ask-iac-apply",
+      "decision": "ask",
+      "pattern": "\\b(terraform|tofu|terragrunt)\\b[^|;&]*\\b(apply|destroy|import|state\\s+(rm|mv|push))\\b|\\b(pulumi\\s+(up|destroy)|cdk\\s+(deploy|destroy)|sam\\s+deploy|serverless\\s+(deploy|remove)|ansible-playbook)\\b|\\baws\\s+cloudformation\\s+(deploy|create-stack|update-stack|delete-stack)\\b",
+      "reason": "Infrastructure changes can create costs or destroy resources; review the plan first."
+    },
+    {
+      "id": "ask-cloud-mutation",
+      "decision": "ask",
+      "pattern": "\\baws\\s+[a-z0-9-]+\\s+(create|delete|terminate|run|put|update|attach|detach|modify|start|stop|reboot|remove|deregister|authorize|revoke)-[a-z0-9-]+|\\baws\\s+s3\\s+(rm|rb|mb|sync|cp|mv)\\b|\\b(az|gcloud)\\b[^|;&]*\\b(create|delete|deploy|update)\\b",
+      "reason": "Cloud operations that change resources can incur costs or cause outages."
+    },
+    {
+      "id": "ask-k8s-mutation",
+      "decision": "ask",
+      "pattern": "\\b(kubectl|oc)\\b[^|;&]*\\b(delete|apply|replace|drain|patch|scale|rollout\\s+undo)\\b|\\bhelm\\b[^|;&]*\\b(install|upgrade|uninstall|delete|rollback)\\b",
+      "reason": "Cluster mutations need explicit approval."
+    },
+    {
+      "id": "ask-persistent-data-delete",
+      "decision": "ask",
+      "pattern": "\\bdocker\\b[^|;&]*\\b(volume\\s+(rm|prune)|system\\s+prune)\\b|\\bdocker[- ]compose\\b[^|;&]*\\bdown\\b[^|;&]*(-v\\b|--volumes)|\\b(DROP|TRUNCATE)\\s+(DATABASE|TABLE|SCHEMA)\\b",
+      "reason": "Deleting persistent data (volumes, databases) needs explicit approval."
+    },
+    {
+      "id": "ask-global-install",
+      "decision": "ask",
+      "pattern": "\\b(npm|pnpm)\\s+(i|install|add)\\b[^|;&]*(\\s-g\\b|--global)|\\byarn\\s+global\\s+add\\b|\\b(go|cargo)\\s+install\\b|\\b(winget|choco|scoop|brew|apt|apt-get|dnf|yum|pacman|snap)\\s+(install|upgrade|remove|uninstall)\\b|\\bInstall-(Module|Package)\\b|\\bpip3?\\s+install\\b[^|;&]*--user\\b",
+      "reason": "Global package installs change the machine outside the project."
+    },
+    {
+      "id": "ask-global-config",
+      "decision": "ask",
+      "pattern": "\\bgit\\s+config\\s+--(global|system)\\b|\\bclaude\\s+(mcp\\s+(add|remove)|plugin\\s+(install|uninstall|enable|disable|marketplace\\s+(add|remove)))\\b|\\bopenspec\\s+config\\s+(set|unset|reset)\\b|\\bsetx\\b|\\[Environment\\]::SetEnvironmentVariable",
+      "reason": "Global configuration changes need explicit approval."
+    },
+    {
+      "id": "ask-git-hooks",
+      "decision": "ask",
+      "pattern": "\\bgga\\s+(install|uninstall)\\b|\\.git[\\\\/]hooks[\\\\/]|\\bgit\\s+config\\b[^|;&]*core\\.hooksPath|\\bhusky\\s+(install|init)\\b|\\bpre-commit\\s+install\\b",
+      "reason": "Changing Git hooks needs explicit approval."
+    },
+    {
+      "id": "ask-elevation",
+      "decision": "ask",
+      "pattern": "(^|[\\s;&|(])(sudo|doas|runas)\\s|-Verb\\s+RunAs\\b",
+      "reason": "Elevated privileges need explicit approval."
+    },
+    {
+      "id": "ask-pipe-to-interpreter",
+      "decision": "ask",
+      "pattern": "\\b(curl|wget|iwr|irm|Invoke-WebRequest|Invoke-RestMethod)\\b[^;&]*\\|\\s*(sudo\\s+)?(ba|z|da)?sh\\b|\\b(curl|wget|iwr|irm|Invoke-WebRequest|Invoke-RestMethod)\\b[^;&]*\\|\\s*(python3?|node|perl|ruby|iex|Invoke-Expression)\\b",
+      "reason": "Running downloaded code without inspection."
+    }
+  ],
+  "dangerous_rm_targets": [
+    "/",
+    "/*",
+    "~",
+    "~/",
+    "~/*",
+    "$HOME",
+    "$HOME/",
+    "$HOME/*",
+    "${HOME}",
+    "${HOME}/",
+    "${HOME}/*",
+    "/c",
+    "/c/",
+    "/c/*",
+    "/mnt/c",
+    "/mnt/c/",
+    "/home",
+    "/home/",
+    "/Users",
+    "/Users/",
+    "/root",
+    "C:",
+    "C:/",
+    "C:\\",
+    "C:/*",
+    "C:\\*",
+    "/etc",
+    "/usr",
+    "/var",
+    "/boot",
+    "/bin",
+    "/lib"
+  ],
+  "secret_files": {
+    "name_patterns": [
+      "^\\.env$",
+      "^\\.env\\..+$",
+      "^id_(rsa|dsa|ecdsa|ed25519)$",
+      "\\.pem$",
+      "\\.key$",
+      "\\.p12$",
+      "\\.pfx$",
+      "\\.jks$",
+      "^\\.netrc$",
+      "^\\.pgpass$",
+      "^credentials$"
+    ],
+    "name_exceptions": [
+      "^\\.env\\.(example|sample|template|dist)$"
+    ],
+    "path_patterns": [
+      "(^|/)\\.ssh/",
+      "(^|/)\\.aws/credentials$",
+      "(^|/)\\.gnupg/",
+      "(^|/)\\.kube/config$",
+      "(^|/)\\.docker/config\\.json$"
+    ],
+    "private_key_patterns": [
+      "^id_(rsa|dsa|ecdsa|ed25519)$",
+      "\\.pem$",
+      "\\.key$",
+      "\\.p12$",
+      "\\.pfx$",
+      "(^|/)\\.ssh/"
+    ]
+  },
+  "global_config_files": [
+    "(^|/)\\.claude/settings(\\.local)?\\.json$",
+    "(^|/)\\.claude\\.json$",
+    "(^|/)\\.claude/rules/",
+    "(^|/)\\.gitconfig$"
+  ],
+  "readonly_agents": [
+    "reviewer",
+    "security-reviewer"
+  ],
+  "readonly_commands": [
+    "ls",
+    "dir",
+    "cat",
+    "head",
+    "tail",
+    "less",
+    "more",
+    "wc",
+    "grep",
+    "egrep",
+    "rg",
+    "find",
+    "fd",
+    "tree",
+    "pwd",
+    "echo",
+    "diff",
+    "stat",
+    "file",
+    "which",
+    "where",
+    "type",
+    "sort",
+    "uniq",
+    "cut",
+    "nl",
+    "basename",
+    "dirname",
+    "realpath",
+    "jq",
+    "Get-ChildItem",
+    "Get-Content",
+    "Select-String",
+    "Get-Item",
+    "Get-Location",
+    "Test-Path",
+    "Measure-Object",
+    "Get-FileHash",
+    "gci",
+    "gc",
+    "sls",
+    "cd",
+    "true"
+  ],
+  "readonly_git_subcommands": [
+    "status",
+    "diff",
+    "log",
+    "show",
+    "blame",
+    "rev-parse",
+    "ls-files",
+    "grep",
+    "shortlog",
+    "describe",
+    "cat-file",
+    "merge-base"
+  ],
+  "readonly_forbidden_patterns": [
+    "(^|[^0-9&])>{1,2}(?!\\s*(/dev/null|\\$null|nul)\\b)",
+    "\\$\\(",
+    "`",
+    "\\s-delete\\b",
+    "\\s-exec(dir)?\\b",
+    "\\s-fprint",
+    "\\bsed\\b[^|;&]*\\s-i",
+    "\\bOut-File\\b",
+    "\\bSet-Content\\b",
+    "\\bAdd-Content\\b",
+    "\\btee\\b",
+    "\\bxargs\\b"
+  ],
+  "readonly_git_list_only": {
+    "branch": [
+      "-a",
+      "-r",
+      "-v",
+      "-vv",
+      "--list",
+      "-l",
+      "--all",
+      "--show-current",
+      "--contains",
+      "--merged",
+      "--no-merged"
+    ],
+    "remote": [
+      "-v",
+      "--verbose",
+      "show",
+      "get-url"
+    ],
+    "tag": [
+      "-l",
+      "--list",
+      "-n",
+      "--contains",
+      "--points-at"
+    ]
+  }
+}
